@@ -9,12 +9,6 @@ package AModel;
  *
  * @author Jaydon
  */
-public class Admin extends User{
-    public Admin(){
-    super("name", "email", "contact", Position.ADMIN, Gender.MALE);
-    }
+public class Product {
     
-    
-    
-  
 }

@@ -6,6 +6,13 @@
 package AModel;
 
 import java.io.Serializable;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.KeySpec;
+import java.util.Arrays;
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.PBEKeySpec;
+
 
 /**
  *
@@ -17,24 +24,21 @@ public class LoginInfo implements Serializable{
      */
     private String username;
     private char[] password;
+    private String hashedPW;
     
+
     /**
-     * Getter and Setter
+     * Constructor, Getter and Setter
      * @return 
      */
     
-    public LoginInfo(String username, String password){
+    public LoginInfo(String username, String password) 
+                throws NoSuchAlgorithmException, InvalidKeySpecException{
         this.username = username;
         this.password = password.toCharArray();
+        this.hashedPW = toHashString(username,password.toCharArray());
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public char[] getPassword() {
-        return password;
-    }
 
     public void setUsername(String username) {
         this.username = username;
@@ -43,15 +47,35 @@ public class LoginInfo implements Serializable{
     public void setPassword(char[] password) {
         this.password = password;
     }
-    
+   
     public User Authenticate(DatabaseManager dm) throws FailedAuthenticationException{
-        for (User user:userTable){
-        
+        TableList userTable = dm.getTable(DatabaseManager.Tables.USER);
+        User output=null;
+        for (Object obj : userTable){
+            User user = (User)obj;
+            if(this.hashedPW.equals(user.getLogin().password))
+                    {output = user;}
+        }
+        if (output==null)
+        {
+            throw new FailedAuthenticationException();
+        }
+        return output;  
         }
         
-        
+    public static String toHashString(String username, char[] password) throws NoSuchAlgorithmException, InvalidKeySpecException{
+        String output="";
+        final int iteration =1000;
+        final int keyLength = 128;
+        byte[] salt = username.getBytes();
+        KeySpec spec = new PBEKeySpec(password,salt,iteration,keyLength);
+        SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
+        byte[] hash = skf.generateSecret(spec).getEncoded();
+        return Arrays.toString(hash);
+           
+    }  
     
-    }
+    
     
     public class FailedAuthenticationException extends Exception{};
     
@@ -59,13 +83,10 @@ public class LoginInfo implements Serializable{
      * Password Hashing
      * @return 
      */
-    public void encryptPassword(){};
-    public void decryptPassword(){};
-    
-    
+
     @Override
     public String toString(){
-    return this.username + "," + this.password;
+    return this.username + "," + this.hashedPW;
     
     }
     

@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package AController;
+import AView.MenuView;
 
 /**
  *
@@ -11,16 +12,10 @@ package AController;
  */
 public class MenuController {
     
-    AView.MenuView view;
+   MenuView view;
     
-    public MenuController(String s){
-    //Change to User Later On
-//        if (s.equals("PM")){
-//        view = new AView.MenuView("PM");
-//        }
-//        else {
-//        view = new AView.MenuView("PM");
-//        }
+    public MenuController(MenuView view){
+    
     
     }
     

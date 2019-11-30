@@ -7,6 +7,9 @@ package AController;
 import AModel.User;
 import AModel.DatabaseManager;
 import AModel.FolderManager;
+import AModel.LoginInfo;
+import AView.MenuView;
+
 import java.awt.event.ActionEvent;
 import java.nio.file.*;
 import java.io.*;
@@ -32,7 +35,6 @@ public class LoginController {
         try{
             fMan = new AModel.FolderManager(false);
             view.setLocal(fMan.getLocalRoot().toString());
-
         }
         catch(FileNotFoundException e0){
          // Prompt for new file
@@ -65,17 +67,24 @@ public class LoginController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            User user=null;
             if (view.Authenticate()){
                 //Authentication Process
+                LoginInfo l;
+                try{
+                l = new LoginInfo(view.getUsername(),view.getPassword());
+                user=l.Authenticate(database);
                 
-                if (view.getUsername().equals("PM")){
-                AView.MenuView menu = new AView.MenuView(User.Position.PRODUCT_MANAGER);
+                }   
+                catch(AModel.LoginInfo.FailedAuthenticationException e0){
+                    view.setWarning("Incorrect Username or Password");
                 }
-                else{
-                AView.MenuView menu = new AView.MenuView(User.Position.ADMIN);
+                catch (Exception e1){
+                    System.out.println("Login Exception: "+e1);
                 }
             }
-            
+            MenuController menu = new MenuController(new MenuView(user.getPosition()));
+            view.setVisible(false);
         }
     
     

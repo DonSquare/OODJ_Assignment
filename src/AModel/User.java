@@ -18,20 +18,18 @@ public abstract class User implements java.io.Serializable {
     private Position position;
     private Gender gender;
     private LoginInfo login;
-    private static final long SerialVersionUID = 1L;
     
    /**
      * Constructor
      */
     public User(){};
     
-    public User(String name, String email, String contact, Position position, Gender gender, LoginInfo login) {
+    public User(String name, String email, String contact, Position position, Gender gender) {
         this.name = name;
         this.email = email;
         this.contact = contact;
         this.position = position;
         this.gender = gender;
-        this.login = login;
     }
 
  
@@ -98,7 +96,6 @@ public abstract class User implements java.io.Serializable {
         return s;
     }
     
-    public void Serialize(Path path,User user) throws IOException{};
     
     
     public enum Position{

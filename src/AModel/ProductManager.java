@@ -16,11 +16,11 @@ public class ProductManager extends User{
     
 
     public ProductManager(String name, String email, String contact, Position position, Gender gender, LoginInfo login) {
-        super(name, email, contact, position, gender, login);
+        super(name, email, contact, position, gender);
     }
     
     public ProductManager(){
-        super("name", "email", "contact", Position.PRODUCT_MANAGER, Gender.MALE, new LoginInfo());
+        super("name", "email", "contact", Position.PRODUCT_MANAGER, Gender.MALE);
     }
     
     //Start of Main

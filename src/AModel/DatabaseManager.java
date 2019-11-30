@@ -16,7 +16,25 @@ import java.util.ArrayList;
  *
  * @author Jaydon
  */
-public class DatabaseManager extends ArrayList {   
+public class DatabaseManager  {   
+    
+    public static void main(String[] args) throws IOException{
+        DatabaseManager dm =new DatabaseManager(new FolderManager(false));
+        TableList user = dm.getTable(Tables.USER);
+        User admin = new Admin();
+        User productManager = new ProductManager();
+        try{
+        admin.setLogin(new LoginInfo("admin","password"));
+        productManager.setLogin(new LoginInfo("pm","password"));
+        }
+        catch(Exception e){
+            System.out.println(e);
+        }
+        user.add(admin);
+        user.add(productManager);
+        System.out.println(user.toString());
+        dm.serialize(user);
+    }
     
     ArrayList<TableList> database = new ArrayList<TableList>();
     FolderManager databaseDirectory;
@@ -34,10 +52,11 @@ public class DatabaseManager extends ArrayList {
     */
     
     public DatabaseManager(FolderManager fm){
+
         this.databaseDirectory=fm;
         try{
         this.pullTables();
-        this.databaseListCheck(fm);
+        this.databaseListCheck();
         this.serializeAll();
         }
         catch (Exception e){
@@ -66,10 +85,10 @@ public class DatabaseManager extends ArrayList {
 
     
     
-    public void databaseListCheck(FolderManager fm){
-        for (Tables type : Tables.values()){
+    public void databaseListCheck(){
+            for (Tables type : Tables.values()){
             if(!this.isTableExist(type)){
-            database.add(new TableList(type));
+            this.database.add(new TableList(type));
             }
         }
         
@@ -121,45 +140,49 @@ public class DatabaseManager extends ArrayList {
     Object obj = null;
     try{
     obj = in.readObject();
+        System.out.println(obj.toString());
     }
     catch(Exception e)
     {
         System.out.println("deserialize"+e);
     }
+    in.close();
     
     return obj;
   }
   
-  public void objConverter(TableList preConvert,TableList postConvert,Tables tableType){
-      for (Object elements: preConvert){
-          switch (tableType){
-            case PRODUCT:
-                break;
-            case SUPPLIER:
-                break;
-            case USER:
-                postConvert.add((User)elements);
-                break;
-            case CATALOGUE:
-                break;
-    }
-          
-      
-      }
-  }
+//  public void objConverter(TableList preConvert,TableList postConvert,Tables tableType){
+//      for (Object elements: preConvert){
+//          switch (tableType){
+//            case PRODUCT:
+//                postConvert.add((Product)elements);
+//                break;
+//            case SUPPLIER:
+//                postConvert.add((Supplier)elements);
+//                break;
+//            case USER:
+//                postConvert.add((User)elements);
+//                break;
+//            case CATALOGUE:
+//                postConvert.add((Catalogue)elements);
+//                break;
+//    }
+//          
+//      
+//      }
+//  }
  
     public void pullTables() throws IOException{
+       
         File dir = new File(this.databaseDirectory.getLocalRoot().toString());
         File[] directoryListing = dir.listFiles();
         if (directoryListing != null){
             for (File tables : directoryListing){
+                    
                     TableList deserializedList = (TableList)this.deserialize(tables);
-                    TableList convertedList = new TableList();
-                    this.objConverter(deserializedList,convertedList,deserializedList.getType());
-                    this.database.add(convertedList);
+                    this.database.add(deserializedList);
                 }
         }
-        System.out.println("Tables Pulled");
     }
     
     @Override
