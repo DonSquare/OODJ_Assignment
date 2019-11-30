@@ -9,6 +9,6 @@ package AModel;
  *
  * @author Jaydon
  */
-public class Catalogue {
-    
+public class Catalogue implements java.io.Serializable{
+    public static final long serialVersionUID=2L;
 }

@@ -24,8 +24,8 @@ public class DatabaseManager  {
         User admin = new Admin();
         User productManager = new ProductManager();
         try{
-        admin.setLogin(new LoginInfo("admin","password"));
-        productManager.setLogin(new LoginInfo("pm","password"));
+        admin.setLogin(new LoginInfo("admin","password")); //Login as Admin
+        productManager.setLogin(new LoginInfo("pm","password")); //Login as PM
         }
         catch(Exception e){
             System.out.println(e);

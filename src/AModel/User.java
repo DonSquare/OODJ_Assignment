@@ -18,6 +18,7 @@ public abstract class User implements java.io.Serializable {
     private Position position;
     private Gender gender;
     private LoginInfo login;
+    public static final long serialVersionUID=2L;
     
    /**
      * Constructor

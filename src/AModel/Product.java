@@ -9,6 +9,6 @@ package AModel;
  *
  * @author Jaydon
  */
-public class Product {
-    
+public class Product implements java.io.Serializable{
+    public static final long serialVersionUID=2L;
 }

@@ -18,10 +18,6 @@ public class TableList extends ArrayList{
     */
 
     private DatabaseManager.Tables tableType;
-    public static final long serialVersionUID = 2L;
-    
-
-  
     
     /*
     Getter and Setter

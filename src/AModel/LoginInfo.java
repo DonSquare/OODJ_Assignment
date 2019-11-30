@@ -51,20 +51,27 @@ public class LoginInfo implements Serializable{
     public User Authenticate(DatabaseManager dm) throws FailedAuthenticationException{
         TableList userTable = dm.getTable(DatabaseManager.Tables.USER);
         User output=null;
+        User user;
         for (Object obj : userTable){
-            User user = (User)obj;
-            if(this.hashedPW.equals(user.getLogin().password))
-                    {output = user;}
+            System.out.println("=====");
+            user = (User)obj;
+            System.out.println(this.hashedPW);
+            System.out.println(user.getLogin().hashedPW);
+            System.out.println(this.hashedPW.getClass().getName());
+            if(this.hashedPW.equals(user.getLogin().hashedPW)){
+                System.out.println("true");
+               output=user;
+                    
+            }
         }
         if (output==null)
         {
             throw new FailedAuthenticationException();
         }
-        return output;  
+        return output;
         }
         
     public static String toHashString(String username, char[] password) throws NoSuchAlgorithmException, InvalidKeySpecException{
-        String output="";
         final int iteration =1000;
         final int keyLength = 128;
         byte[] salt = username.getBytes();

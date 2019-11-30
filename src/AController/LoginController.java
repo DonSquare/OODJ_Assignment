@@ -68,12 +68,12 @@ public class LoginController {
         @Override
         public void actionPerformed(ActionEvent e) {
             User user=null;
-            if (view.Authenticate()){
-                //Authentication Process
                 LoginInfo l;
                 try{
                 l = new LoginInfo(view.getUsername(),view.getPassword());
                 user=l.Authenticate(database);
+                MenuController menu = new MenuController(new MenuView(user.getPosition()));
+                view.setVisible(false);
                 
                 }   
                 catch(AModel.LoginInfo.FailedAuthenticationException e0){
@@ -82,9 +82,8 @@ public class LoginController {
                 catch (Exception e1){
                     System.out.println("Login Exception: "+e1);
                 }
-            }
-            MenuController menu = new MenuController(new MenuView(user.getPosition()));
-            view.setVisible(false);
+
+            
         }
     
     
