@@ -72,7 +72,7 @@ public class LoginController {
                 try{
                 l = new LoginInfo(view.getUsername(),view.getPassword());
                 user=l.Authenticate(database);
-                MenuController menu = new MenuController(new MenuView(user.getPosition()));
+                MenuController menu = new MenuController(new MenuView(user.getPosition()),user);
                 view.setVisible(false);
                 
                 }   

@@ -18,23 +18,7 @@ import java.util.ArrayList;
  */
 public class DatabaseManager  {   
     
-    public static void main(String[] args) throws IOException{
-        DatabaseManager dm =new DatabaseManager(new FolderManager(false));
-        TableList user = dm.getTable(Tables.USER);
-        User admin = new Admin();
-        User productManager = new ProductManager();
-        try{
-        admin.setLogin(new LoginInfo("admin","password")); //Login as Admin
-        productManager.setLogin(new LoginInfo("pm","password")); //Login as PM
-        }
-        catch(Exception e){
-            System.out.println(e);
-        }
-        user.add(admin);
-        user.add(productManager);
-        System.out.println(user.toString());
-        dm.serialize(user);
-    }
+
     
     ArrayList<TableList> database = new ArrayList<TableList>();
     FolderManager databaseDirectory;
@@ -140,7 +124,6 @@ public class DatabaseManager  {
     Object obj = null;
     try{
     obj = in.readObject();
-        System.out.println(obj.toString());
     }
     catch(Exception e)
     {

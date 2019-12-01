@@ -5,6 +5,7 @@
  */
 package AView;
 import AModel.User;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 
 /**
@@ -58,12 +59,18 @@ public class MenuView extends javax.swing.JFrame {
         dashboardButtonAD = new javax.swing.JButton();
         logOutAD = new javax.swing.JButton();
         contentHolderAdmin = new javax.swing.JLayeredPane();
-        supplierPanel = new javax.swing.JPanel();
-        logPanel = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
-        managerPanel = new javax.swing.JPanel();
+        profilePanelAD = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
+        managerPanelAD = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        supplierPanelAD = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        logPanelAD = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
         dashboardPanelAD = new javax.swing.JPanel();
-        jPanel6 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        productPanelAD = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
         menuPM = new javax.swing.JPanel();
         naviBarPM = new javax.swing.JPanel();
         profileButtonPM = new javax.swing.JButton();
@@ -81,6 +88,8 @@ public class MenuView extends javax.swing.JFrame {
         setResizable(false);
 
         basePanel.setBackground(new java.awt.Color(204, 204, 204));
+        basePanel.setAutoscrolls(true);
+        basePanel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         basePanel.setLayout(new java.awt.CardLayout());
 
         menuAdmin.setBackground(new java.awt.Color(102, 102, 102));
@@ -89,9 +98,19 @@ public class MenuView extends javax.swing.JFrame {
 
         profileButtonPM.setText("Manage\nPersonal\nProfile");
         profileButtonAD.setText("Manage Personal Profile");
+        profileButtonAD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                profileButtonADActionPerformed(evt);
+            }
+        });
 
         profileButtonPM.setText("Manage\nPersonal\nProfile");
         managerButtonAD.setText("Manage Manager");
+        managerButtonAD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                managerButtonADActionPerformed(evt);
+            }
+        });
 
         profileButtonPM.setText("Manage\nPersonal\nProfile");
         supplierButtonAD.setText("Manage Supplier");
@@ -151,87 +170,138 @@ public class MenuView extends javax.swing.JFrame {
 
         contentHolderAdmin.setLayout(new java.awt.CardLayout());
 
-        javax.swing.GroupLayout supplierPanelLayout = new javax.swing.GroupLayout(supplierPanel);
-        supplierPanel.setLayout(supplierPanelLayout);
-        supplierPanelLayout.setHorizontalGroup(
-            supplierPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 6, Short.MAX_VALUE)
+        profilePanelAD.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel8.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel8.setText("profile");
+
+        javax.swing.GroupLayout profilePanelADLayout = new javax.swing.GroupLayout(profilePanelAD);
+        profilePanelAD.setLayout(profilePanelADLayout);
+        profilePanelADLayout.setHorizontalGroup(
+            profilePanelADLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(profilePanelADLayout.createSequentialGroup()
+                .addGap(167, 167, 167)
+                .addComponent(jLabel8)
+                .addContainerGap(569, Short.MAX_VALUE))
         );
-        supplierPanelLayout.setVerticalGroup(
-            supplierPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 540, Short.MAX_VALUE)
+        profilePanelADLayout.setVerticalGroup(
+            profilePanelADLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(profilePanelADLayout.createSequentialGroup()
+                .addGap(142, 142, 142)
+                .addComponent(jLabel8)
+                .addContainerGap(382, Short.MAX_VALUE))
         );
 
-        contentHolderAdmin.add(supplierPanel, "card2");
+        contentHolderAdmin.add(profilePanelAD, "card8");
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
+        jLabel1.setText("Manager");
 
-        javax.swing.GroupLayout logPanelLayout = new javax.swing.GroupLayout(logPanel);
-        logPanel.setLayout(logPanelLayout);
-        logPanelLayout.setHorizontalGroup(
-            logPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(logPanelLayout.createSequentialGroup()
-                .addGap(143, 143, 143)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        javax.swing.GroupLayout managerPanelADLayout = new javax.swing.GroupLayout(managerPanelAD);
+        managerPanelAD.setLayout(managerPanelADLayout);
+        managerPanelADLayout.setHorizontalGroup(
+            managerPanelADLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(managerPanelADLayout.createSequentialGroup()
+                .addGap(263, 263, 263)
+                .addComponent(jLabel1)
+                .addContainerGap(459, Short.MAX_VALUE))
         );
-        logPanelLayout.setVerticalGroup(
-            logPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, logPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(123, 123, 123))
+        managerPanelADLayout.setVerticalGroup(
+            managerPanelADLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(managerPanelADLayout.createSequentialGroup()
+                .addGap(209, 209, 209)
+                .addComponent(jLabel1)
+                .addContainerGap(315, Short.MAX_VALUE))
         );
 
-        contentHolderAdmin.add(logPanel, "card3");
+        contentHolderAdmin.add(managerPanelAD, "card4");
 
-        javax.swing.GroupLayout managerPanelLayout = new javax.swing.GroupLayout(managerPanel);
-        managerPanel.setLayout(managerPanelLayout);
-        managerPanelLayout.setHorizontalGroup(
-            managerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 6, Short.MAX_VALUE)
+        jLabel5.setText("Supplier");
+
+        javax.swing.GroupLayout supplierPanelADLayout = new javax.swing.GroupLayout(supplierPanelAD);
+        supplierPanelAD.setLayout(supplierPanelADLayout);
+        supplierPanelADLayout.setHorizontalGroup(
+            supplierPanelADLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(supplierPanelADLayout.createSequentialGroup()
+                .addGap(320, 320, 320)
+                .addComponent(jLabel5)
+                .addContainerGap(405, Short.MAX_VALUE))
         );
-        managerPanelLayout.setVerticalGroup(
-            managerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 540, Short.MAX_VALUE)
+        supplierPanelADLayout.setVerticalGroup(
+            supplierPanelADLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(supplierPanelADLayout.createSequentialGroup()
+                .addGap(237, 237, 237)
+                .addComponent(jLabel5)
+                .addContainerGap(287, Short.MAX_VALUE))
         );
 
-        contentHolderAdmin.add(managerPanel, "card4");
+        contentHolderAdmin.add(supplierPanelAD, "card2");
+
+        jLabel6.setText("Log");
+
+        javax.swing.GroupLayout logPanelADLayout = new javax.swing.GroupLayout(logPanelAD);
+        logPanelAD.setLayout(logPanelADLayout);
+        logPanelADLayout.setHorizontalGroup(
+            logPanelADLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, logPanelADLayout.createSequentialGroup()
+                .addContainerGap(445, Short.MAX_VALUE)
+                .addComponent(jLabel6)
+                .addGap(306, 306, 306))
+        );
+        logPanelADLayout.setVerticalGroup(
+            logPanelADLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(logPanelADLayout.createSequentialGroup()
+                .addGap(250, 250, 250)
+                .addComponent(jLabel6)
+                .addContainerGap(274, Short.MAX_VALUE))
+        );
+
+        contentHolderAdmin.add(logPanelAD, "card3");
+
+        jLabel4.setText("dashboard");
 
         javax.swing.GroupLayout dashboardPanelADLayout = new javax.swing.GroupLayout(dashboardPanelAD);
         dashboardPanelAD.setLayout(dashboardPanelADLayout);
         dashboardPanelADLayout.setHorizontalGroup(
             dashboardPanelADLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 6, Short.MAX_VALUE)
+            .addGap(0, 772, Short.MAX_VALUE)
+            .addGroup(dashboardPanelADLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(dashboardPanelADLayout.createSequentialGroup()
+                    .addGap(340, 340, 340)
+                    .addComponent(jLabel4)
+                    .addContainerGap(371, Short.MAX_VALUE)))
         );
         dashboardPanelADLayout.setVerticalGroup(
             dashboardPanelADLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 540, Short.MAX_VALUE)
+            .addGroup(dashboardPanelADLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(dashboardPanelADLayout.createSequentialGroup()
+                    .addGap(262, 262, 262)
+                    .addComponent(jLabel4)
+                    .addContainerGap(262, Short.MAX_VALUE)))
         );
 
         contentHolderAdmin.add(dashboardPanelAD, "card5");
 
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 6, Short.MAX_VALUE)
+        jLabel7.setText("product");
+
+        javax.swing.GroupLayout productPanelADLayout = new javax.swing.GroupLayout(productPanelAD);
+        productPanelAD.setLayout(productPanelADLayout);
+        productPanelADLayout.setHorizontalGroup(
+            productPanelADLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(productPanelADLayout.createSequentialGroup()
+                .addGap(275, 275, 275)
+                .addComponent(jLabel7)
+                .addContainerGap(453, Short.MAX_VALUE))
         );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 540, Short.MAX_VALUE)
+        productPanelADLayout.setVerticalGroup(
+            productPanelADLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(productPanelADLayout.createSequentialGroup()
+                .addGap(240, 240, 240)
+                .addComponent(jLabel7)
+                .addContainerGap(284, Short.MAX_VALUE))
         );
 
-        contentHolderAdmin.add(jPanel6, "card6");
+        contentHolderAdmin.add(productPanelAD, "card9");
 
         javax.swing.GroupLayout menuAdminLayout = new javax.swing.GroupLayout(menuAdmin);
         menuAdmin.setLayout(menuAdminLayout);
@@ -240,8 +310,7 @@ public class MenuView extends javax.swing.JFrame {
             .addGroup(menuAdminLayout.createSequentialGroup()
                 .addComponent(naviBarAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(contentHolderAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 6, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(724, Short.MAX_VALUE))
+                .addComponent(contentHolderAdmin))
         );
         menuAdminLayout.setVerticalGroup(
             menuAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -300,7 +369,7 @@ public class MenuView extends javax.swing.JFrame {
         dashboardPanelPM.setLayout(dashboardPanelPMLayout);
         dashboardPanelPMLayout.setHorizontalGroup(
             dashboardPanelPMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 718, Short.MAX_VALUE)
+            .addGap(0, 760, Short.MAX_VALUE)
         );
         dashboardPanelPMLayout.setVerticalGroup(
             dashboardPanelPMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -313,7 +382,7 @@ public class MenuView extends javax.swing.JFrame {
         cataloguePanel.setLayout(cataloguePanelLayout);
         cataloguePanelLayout.setHorizontalGroup(
             cataloguePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 718, Short.MAX_VALUE)
+            .addGap(0, 760, Short.MAX_VALUE)
         );
         cataloguePanelLayout.setVerticalGroup(
             cataloguePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -326,7 +395,7 @@ public class MenuView extends javax.swing.JFrame {
         productPanel.setLayout(productPanelLayout);
         productPanelLayout.setHorizontalGroup(
             productPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 718, Short.MAX_VALUE)
+            .addGap(0, 760, Short.MAX_VALUE)
         );
         productPanelLayout.setVerticalGroup(
             productPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -339,7 +408,7 @@ public class MenuView extends javax.swing.JFrame {
         profilePanel.setLayout(profilePanelLayout);
         profilePanelLayout.setHorizontalGroup(
             profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 718, Short.MAX_VALUE)
+            .addGap(0, 760, Short.MAX_VALUE)
         );
         profilePanelLayout.setVerticalGroup(
             profilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -369,15 +438,31 @@ public class MenuView extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(basePanel, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(basePanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(basePanel, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(basePanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void profileButtonADActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profileButtonADActionPerformed
+        // TODO add your handling code here:
+        this.contentHolderAdmin.removeAll();
+        this.contentHolderAdmin.add(this.profilePanelAD);
+        this.contentHolderAdmin.repaint();
+        this.contentHolderAdmin.revalidate();
+    }//GEN-LAST:event_profileButtonADActionPerformed
+
+    private void managerButtonADActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_managerButtonADActionPerformed
+        // TODO add your handling code here:
+        this.contentHolderAdmin.removeAll();
+        this.contentHolderAdmin.add(this.managerPanelAD);
+        this.contentHolderAdmin.repaint();
+        this.contentHolderAdmin.revalidate();
+    }//GEN-LAST:event_managerButtonADActionPerformed
 
     /**
      * @param args the command line arguments
@@ -440,7 +525,66 @@ public class MenuView extends javax.swing.JFrame {
     
     }
     
+    public enum panelchoice{
+        SUPPLIERAD,
+        PROFILEAD,
+        PRODUCTAD,
+        MANAGERAD,
+        LOGAD,
+        DASHBOARDAD
+    }
     
+    
+//    public void setContentPane(User.Position position, panelchoice choice){
+//        System.out.println("test 2");
+//        if(position==User.Position.ADMIN){
+//            contentHolderAdmin.removeAll();
+//            switch (choice){
+//                case MANAGERAD:
+//                    System.out.println("test 3");
+//            contentHolderAdmin.add(this.managerPanelAD);
+//                    System.out.println("test 4");
+//            contentHolderAdmin.repaint();
+//                    System.out.println("test 5");
+//            contentHolderAdmin.revalidate();
+//                    break;
+//                case SUPPLIERAD:
+//            contentHolderAdmin.add(supplierPanelAD);
+//            contentHolderAdmin.repaint();
+//            contentHolderAdmin.revalidate();
+//                    break;
+//                case PROFILEAD:
+//            contentHolderAdmin.add(profilePanelAD);
+//            contentHolderAdmin.add(profilePanelAD);
+//            contentHolderAdmin.repaint();
+//            contentHolderAdmin.revalidate();
+//                    break;
+//                case PRODUCTAD:
+//            contentHolderAdmin.add(productPanelAD);
+//            contentHolderAdmin.repaint();
+//            contentHolderAdmin.revalidate();
+//                    break;
+//                case LOGAD:
+//            contentHolderAdmin.add(logPanelAD);
+//            contentHolderAdmin.repaint();
+//            contentHolderAdmin.revalidate();
+//                    break;
+//                case DASHBOARDAD:
+//            contentHolderAdmin.add(dashboardPanelAD);
+//            contentHolderAdmin.repaint();
+//            contentHolderAdmin.revalidate();
+//                    break;
+//            }
+//        }
+//        
+//        
+//        else if(position==User.Position.PRODUCT_MANAGER){
+//        
+//        
+//        }
+//    }
+//    
+  
     
     
     /**
@@ -454,8 +598,35 @@ public class MenuView extends javax.swing.JFrame {
         basePanel.revalidate();
     }
     
+//    public void switchContentHolderPanels(Panel panel){
+//        
+//        
+//    }
     
+  
     
+    /**
+     * NaviButtons
+     */
+//    public void addNavibarListener(ActionListener listenerForNaviButtons,User user){
+//        if (user.getPosition()==User.Position.ADMIN){
+//        profileButtonAD.addActionListener(listenerForNaviButtons);
+//        managerButtonAD.addActionListener(listenerForNaviButtons);
+//        supplierButtonAD.addActionListener(listenerForNaviButtons);
+//        productButtonAD.addActionListener(listenerForNaviButtons);
+//        logButtonAD.addActionListener(listenerForNaviButtons);
+//        dashboardButtonAD.addActionListener(listenerForNaviButtons);
+//        }
+//        else if (user.getPosition()==User.Position.PRODUCT_MANAGER){
+//         profileButtonPM.addActionListener(listenerForNaviButtons);
+//        productButtonPM.addActionListener(listenerForNaviButtons);
+//        dashboardButtonPM.addActionListener(listenerForNaviButtons);
+//        catalogueButtonPM.addActionListener(listenerForNaviButtons);
+//        }
+//    }
+
+
+
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLayeredPane basePanel;
@@ -467,14 +638,18 @@ public class MenuView extends javax.swing.JFrame {
     private javax.swing.JButton dashboardButtonPM;
     private javax.swing.JPanel dashboardPanelAD;
     private javax.swing.JPanel dashboardPanelPM;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel6;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JButton logButtonAD;
     private javax.swing.JButton logOutAD;
     private javax.swing.JButton logOutPM;
-    private javax.swing.JPanel logPanel;
+    private javax.swing.JPanel logPanelAD;
     private javax.swing.JButton managerButtonAD;
-    private javax.swing.JPanel managerPanel;
+    private javax.swing.JPanel managerPanelAD;
     private javax.swing.JPanel menuAdmin;
     private javax.swing.JPanel menuPM;
     private javax.swing.JPanel naviBarAdmin;
@@ -482,10 +657,88 @@ public class MenuView extends javax.swing.JFrame {
     private javax.swing.JButton productButtonAD;
     private javax.swing.JButton productButtonPM;
     private javax.swing.JPanel productPanel;
+    private javax.swing.JPanel productPanelAD;
     private javax.swing.JButton profileButtonAD;
     private javax.swing.JButton profileButtonPM;
     private javax.swing.JPanel profilePanel;
+    private javax.swing.JPanel profilePanelAD;
     private javax.swing.JButton supplierButtonAD;
-    private javax.swing.JPanel supplierPanel;
+    private javax.swing.JPanel supplierPanelAD;
     // End of variables declaration//GEN-END:variables
+
+    /**
+     * Getter for panels
+     * @return 
+     */
+    public JPanel getCataloguePanel() {
+        return cataloguePanel;
+    }
+
+    public JLayeredPane getContentHolderAdmin() {
+        return contentHolderAdmin;
+    }
+
+    public JLayeredPane getContentHolderPM() {
+        return contentHolderPM;
+    }
+
+    public JPanel getDashboardPanelAD() {
+        return dashboardPanelAD;
+    }
+
+    public JPanel getDashboardPanelPM() {
+        return dashboardPanelPM;
+    }
+
+    public JPanel getLogPanelAD() {
+        return logPanelAD;
+    }
+
+    public JPanel getManagerPanelAD() {
+        return managerPanelAD;
+    }
+
+    public JPanel getMenuAdmin() {
+        return menuAdmin;
+    }
+
+    public JPanel getMenuPM() {
+        return menuPM;
+    }
+
+    public JPanel getNaviBarAdmin() {
+        return naviBarAdmin;
+    }
+
+    public JPanel getNaviBarPM() {
+        return naviBarPM;
+    }
+
+    public JPanel getProductPanel() {
+        return productPanel;
+    }
+
+    public JPanel getProductPanelAD() {
+        return productPanelAD;
+    }
+
+    public JPanel getProfilePanel() {
+        return profilePanel;
+    }
+
+    public JPanel getProfilePanelAD() {
+        return profilePanelAD;
+    }
+
+    public JPanel getSupplierPanel() {
+        return supplierPanelAD;
+    }
+
+
+
+/**
+ * Getter and Setter
+ */
+
+
 }

@@ -55,9 +55,6 @@ public class LoginInfo implements Serializable{
         for (Object obj : userTable){
             System.out.println("=====");
             user = (User)obj;
-            System.out.println(this.hashedPW);
-            System.out.println(user.getLogin().hashedPW);
-            System.out.println(this.hashedPW.getClass().getName());
             if(this.hashedPW.equals(user.getLogin().hashedPW)){
                 System.out.println("true");
                output=user;

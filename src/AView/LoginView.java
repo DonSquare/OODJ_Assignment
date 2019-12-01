@@ -179,11 +179,7 @@ public class LoginView extends javax.swing.JFrame {
     }
     
 
-    public boolean Authenticate(){
-    
-        return true;
-    
-    }
+
     
     
 
