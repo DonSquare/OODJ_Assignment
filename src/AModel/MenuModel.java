@@ -14,7 +14,7 @@ import java.io.IOException;
 public class MenuModel {
     public User user;
     public DatabaseManager DB;
-    public Log session;
+    public Log session ;
     
    
     

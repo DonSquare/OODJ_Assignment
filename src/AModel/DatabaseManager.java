@@ -131,13 +131,22 @@ public class DatabaseManager  {
    public void addUser(User user) throws IOException{
        TableList table = this.getTable(Tables.USER);
        table.add(user);
-       serialize(table);
    }
    
-   public void addLog(Log l) throws IOException{
+   public void addLog(Log log) throws IOException{
        TableList table = this.getTable(Tables.LOG);
-       table.add(l);
-       serialize(table);
+       table.add(log);
+   }
+  
+   public void addSupplier(Supplier supplier) throws IOException{
+       TableList table = this.getTable(Tables.SUPPLIER);
+       table.add(supplier);
+   }
+   
+   public void addProduct(Product product) throws IOException{
+       TableList table = this.getTable(Tables.PRODUCT);
+       table.add(product);
+   
    }
    
 

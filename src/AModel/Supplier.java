@@ -14,7 +14,15 @@ public class Supplier implements java.io.Serializable{
     public String name,address,contact,email;
     public static final long serialVersionUID=2L;
 
-    
+    public Supplier(){};
+
+    public Supplier(String name, String address, String contact, String email) {
+        this.name = name;
+        this.address = address;
+        this.contact = contact;
+        this.email = email;
+    }
+  
 
     /*
     Getter and Setter

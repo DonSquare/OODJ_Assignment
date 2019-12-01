@@ -11,8 +11,10 @@ package AModel;
  */
 public class Identification{
     
+    
     public String header;
     public int number;
+    public static final long serialVersionUID=2L;
     
     enum headerGroup{
         PM, //PRODUCT MANAGER
