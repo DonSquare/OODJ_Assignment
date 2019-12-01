@@ -8,6 +8,7 @@ import AModel.User;
 import AModel.DatabaseManager;
 import AModel.FolderManager;
 import AModel.LoginInfo;
+import AModel.MenuModel;
 import AView.MenuView;
 
 import java.awt.event.ActionEvent;
@@ -72,15 +73,12 @@ public class LoginController {
                 try{
                 l = new LoginInfo(view.getUsername(),view.getPassword());
                 user=l.Authenticate(database);
-                MenuController menu = new MenuController(new MenuView(user.getPosition()),user);
+                MenuController menu = new MenuController(new MenuView(user),new MenuModel(user));
                 view.setVisible(false);
-                
                 }   
                 catch(AModel.LoginInfo.FailedAuthenticationException e0){
-                    view.setWarning("Incorrect Username or Password");
                 }
                 catch (Exception e1){
-                    System.out.println("Login Exception: "+e1);
                 }
 
             

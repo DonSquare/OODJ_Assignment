@@ -90,7 +90,7 @@ public class LoginInfo implements Serializable{
 
     @Override
     public String toString(){
-    return this.username + "," + this.hashedPW;
+    return this.username;
     
     }
     
