@@ -20,9 +20,6 @@ import java.util.ArrayList;
  */
 public class DatabaseManager  {   
     
-    public static void main(String[] args) throws IOException, NoSuchAlgorithmException, InvalidKeySpecException{
-
-    }
 
     
     ArrayList<TableList> database = new ArrayList<TableList>();
@@ -32,7 +29,8 @@ public class DatabaseManager  {
         PRODUCT,
         SUPPLIER,
         USER,
-        CATALOGUE
+        CATALOGUE,
+        LOG
          //Using enum here for better control of what tables 
         //can be made
     }
@@ -47,6 +45,7 @@ public class DatabaseManager  {
         this.pullTables();
         this.databaseListCheck();
         this.serializeAll();
+            System.out.println("test 3");
         }
         catch (Exception e){
             System.out.println("DM instantiation error"+e);
@@ -135,11 +134,19 @@ public class DatabaseManager  {
        serialize(table);
    }
    
+   public void addLog(Log l) throws IOException{
+       TableList table = this.getTable(Tables.LOG);
+       table.add(l);
+       serialize(table);
+   }
+   
 
   /*
    Serialize
    */ 
   public void serialize(TableList table) throws IOException{
+      System.out.println("2");
+      System.out.println(table);
       String fileName = table.getTableFileName();
       Path tableFile =  this.databaseDirectory.getLocalRoot().resolve(fileName);
       ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(new File(tableFile.toString())));
@@ -148,6 +155,7 @@ public class DatabaseManager  {
   } 
  
   public void serializeAll() throws IOException{
+      System.out.println("1");
       for (TableList table : this.database){
         this.serialize(table);
       }
@@ -200,7 +208,6 @@ public class DatabaseManager  {
         File[] directoryListing = dir.listFiles();
         if (directoryListing != null){
             for (File tables : directoryListing){
-                    
                     TableList deserializedList = (TableList)this.deserialize(tables);
                     this.database.add(deserializedList);
                 }

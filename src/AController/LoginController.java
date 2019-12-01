@@ -21,9 +21,10 @@ import java.io.*;
  * @author Jaydon
  */
 public class LoginController {
-    AView.LoginView view;
-    FolderManager fMan;
-    DatabaseManager database;
+    public AView.LoginView view;
+    public FolderManager fMan;
+    public DatabaseManager database;
+    public boolean isFirst=false;
     
     /**
      * Constructor for Login Controller (Basically the Login window)
@@ -46,14 +47,15 @@ public class LoginController {
             System.out.println(p.toString());
             System.out.println(fMan.writeLocal(p));
             fMan.setLocalRoot(this.view.getLocal());
+            this.isFirst=true;
                 } 
         catch(IOException e1){
             // Cannot be thrown for some reason
             }
         
         database = new DatabaseManager(fMan);
-        database.databaseAddMasters();
-        
+        if(this.isFirst==true)
+            database.databaseAddMasters();
            }
         
         

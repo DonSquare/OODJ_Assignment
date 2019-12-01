@@ -10,5 +10,20 @@ package AModel;
  * @author Jaydon
  */
 public class Supplier implements java.io.Serializable{
+    private Identification ID;
+    public String name,address,contact,email;
     public static final long serialVersionUID=2L;
+
+    
+
+    /*
+    Getter and Setter
+     */
+
+    public String getID() {
+        return ID.toString() ;
+    }
+    
+
+    
 }

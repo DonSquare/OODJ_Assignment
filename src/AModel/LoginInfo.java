@@ -25,6 +25,8 @@ public class LoginInfo implements Serializable{
     private String username;
     private char[] password;
     private String hashedPW;
+    public static final long serialVersionUID=2L; 
+    
     
 
     /**

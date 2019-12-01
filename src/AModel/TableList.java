@@ -43,6 +43,9 @@ public class TableList extends ArrayList{
             case CATALOGUE:
                 output="Catalogue database";
                 break;
+            case LOG:
+                output="Log database";
+                break;
     }
      return output;
     }
