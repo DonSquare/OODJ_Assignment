@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * @author Jaydon
  */
 public class TableList extends ArrayList{
-    
+      public static final long serialVersionUID=2L;
     /*
     Properties
     */
@@ -26,6 +26,7 @@ public class TableList extends ArrayList{
     return this.tableType;
     }
     
+
     
     public String getTableName(){
         String output=null;

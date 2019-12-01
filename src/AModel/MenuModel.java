@@ -5,14 +5,25 @@
  */
 package AModel;
 
+import java.io.IOException;
+
 /**
  *
  * @author Jaydon
  */
 public class MenuModel {
     public User user;
-    public MenuModel(User u){
-     this.user = u;
-    }
+    public DatabaseManager DB;
     
+   
+    
+    public MenuModel(User u, DatabaseManager db) throws IOException{
+     this.user = u;
+     this.DB =db;
+     
+    
+}
+    public String toString(){
+    return this.user.toString() + "\n" + this.DB.toString();
+    }
 }

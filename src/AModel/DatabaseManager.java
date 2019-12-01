@@ -8,6 +8,8 @@ package AModel;
 import java.io.File;
 import java.io.*;
 import java.nio.file.Path;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
 
 
@@ -18,12 +20,15 @@ import java.util.ArrayList;
  */
 public class DatabaseManager  {   
     
+    public static void main(String[] args) throws IOException, NoSuchAlgorithmException, InvalidKeySpecException{
+
+    }
 
     
     ArrayList<TableList> database = new ArrayList<TableList>();
     FolderManager databaseDirectory;
 
-        enum Tables{
+        public enum Tables{
         PRODUCT,
         SUPPLIER,
         USER,
@@ -78,6 +83,33 @@ public class DatabaseManager  {
         
     }
     
+    public void databaseAddMasters() throws IOException{
+        User user1 = new Admin();
+        User user2 = new ProductManager();
+        user1.setName("masterAdmin");
+        try{
+        user1.setLogin(new LoginInfo ("admin","password"));
+        user2.setName("masterProductManager");
+        user2.setLogin(new LoginInfo ("pm","password"));
+        }
+        catch(Exception e){
+            System.out.println("master creation error");
+        }
+//        System.out.println("user1: "+user1);
+//        System.out.println("user2: "+user2);
+//        System.out.println("========================================");
+//        System.out.println("Pulled tables \n"+ dm.getTable(Tables.USER));
+        TableList table = this.getTable(Tables.USER);
+        table.add(user1);
+        table.add(user2);
+//        System.out.println("==================================");
+//        System.out.println("pre serialization: \n"+ table);
+        this.serialize(table);
+ 
+        }
+//        System.out.println("Testing 2 "+dm.toString());
+    
+    
     
     
     
@@ -87,6 +119,7 @@ public class DatabaseManager  {
      * @return 
      */
    public TableList getTable(Tables T){
+       System.out.println("test");
        TableList table=null;
        for (TableList tables : this.database){
            if (tables.getType() == T){
@@ -94,6 +127,12 @@ public class DatabaseManager  {
            }
        }
        return table;
+   }
+   
+   public void addUser(User user) throws IOException{
+       TableList table = this.getTable(Tables.USER);
+       table.add(user);
+       serialize(table);
    }
    
 
@@ -127,7 +166,7 @@ public class DatabaseManager  {
     }
     catch(Exception e)
     {
-        System.out.println("deserialize"+e);
+        System.out.println("deserialize "+e);
     }
     in.close();
     

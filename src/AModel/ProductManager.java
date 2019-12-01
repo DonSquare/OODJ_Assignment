@@ -13,10 +13,12 @@ import java.nio.file.*;
  * @author Jaydon
  */
 public class ProductManager extends User{
+   public static final long serialVersionUID=2L;
     
 
-    public ProductManager(String name, String email, String contact, Position position, Gender gender, LoginInfo login) {
-        super(name, email, contact, position, gender);
+    public ProductManager(String name, String email, String contact, Gender gender, LoginInfo login) {
+        super(name, email, contact, Position.PRODUCT_MANAGER, Gender.MALE);
+        this.setLogin(login);
     }
     
     public ProductManager(){
@@ -25,18 +27,7 @@ public class ProductManager extends User{
     
     //Start of Main
     public static void main(String[] args){
-        UserFactory uFac = new UserFactory();
-        try{
-//            uFac.createUser(Position.PRODUCT_MANAGER);
-            FolderManager fm = new FolderManager(false);
-            System.out.println("test1");
-//            test.deSerialize(fm.getLocalRoot(), test);
-//            System.out.println(test);
-        }
-        catch (Exception e){
-            System.out.println(e);
-        
-        }
+
     
     }
     

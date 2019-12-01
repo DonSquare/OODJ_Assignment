@@ -52,6 +52,7 @@ public class LoginController {
             }
         
         database = new DatabaseManager(fMan);
+        database.databaseAddMasters();
         
            }
         
@@ -73,12 +74,15 @@ public class LoginController {
                 try{
                 l = new LoginInfo(view.getUsername(),view.getPassword());
                 user=l.Authenticate(database);
-                MenuController menu = new MenuController(new MenuView(user),new MenuModel(user));
+                    System.out.println("test1");
+                MenuView mainMenu = new MenuView(new MenuModel(user,new DatabaseManager(new FolderManager(false))));
                 view.setVisible(false);
                 }   
                 catch(AModel.LoginInfo.FailedAuthenticationException e0){
+                    view.setWarning("Incorrect Username or Password");
                 }
                 catch (Exception e1){
+                    System.out.println("login fial: "+e1);
                 }
 
             

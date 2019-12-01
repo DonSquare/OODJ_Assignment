@@ -4,9 +4,16 @@
  * and open the template in the editor.
  */
 package AView;
+import AModel.DatabaseManager;
+import AModel.*;
+import AModel.TableList;
 import AModel.User;
-import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -15,30 +22,32 @@ import javax.swing.*;
 public class MenuView extends javax.swing.JFrame {
 
     /**
+     * Properties Model
+     */
+    MenuModel model;
+    
+    /**
      * Creates new form Menu
      */
-  public MenuView(){
-      initComponents();
-      this.setVisible(true);
-  
-  }
+    // <editor-fold defaultstate="collapsed" desc="Constructor">  
+
     
-   public MenuView(User user){
+   public MenuView(MenuModel model){
+       this.model =model;
        initComponents();
-       initPanelComponents(user);
-       if (user.getPosition()==User.Position.PRODUCT_MANAGER){
+       initPanelComponents(model.user,model.DB);
+       if (model.user.getPosition()==User.Position.PRODUCT_MANAGER){
            this.setTitle("Product Manager Menu");
-           this.setNaviBar(user.getPosition());
+           this.setNaviBar(model.user.getPosition());
            this.setVisible(true);
        }
-       else if (user.getPosition() == User.Position.ADMIN){
+       else if (model.user.getPosition() == User.Position.ADMIN){
            this.setTitle("Admin Menu");
-           this.setNaviBar(user.getPosition());
+           this.setNaviBar(model.user.getPosition());
            this.setVisible(true);
-       
        }
    }
-
+   //</editor-fold>
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -59,6 +68,38 @@ public class MenuView extends javax.swing.JFrame {
         dashboardButtonAD = new javax.swing.JButton();
         logOutAD = new javax.swing.JButton();
         contentHolderAdmin = new javax.swing.JLayeredPane();
+        managerPanelAD = new javax.swing.JPanel();
+        createUserButton = new javax.swing.JButton();
+        viewUserButton = new javax.swing.JButton();
+        userSubPanel = new javax.swing.JLayeredPane();
+        createPM = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        newName = new javax.swing.JTextField();
+        newEmail = new javax.swing.JTextField();
+        newContact = new javax.swing.JTextField();
+        newUsername = new javax.swing.JTextField();
+        jLabel20 = new javax.swing.JLabel();
+        newPass1 = new javax.swing.JPasswordField();
+        newPass2 = new javax.swing.JPasswordField();
+        NewUserTitle = new javax.swing.JLabel();
+        enterButton1 = new javax.swing.JButton();
+        cancelButton1 = new javax.swing.JButton();
+        warningLabel = new javax.swing.JLabel();
+        viewPM = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        userView = new javax.swing.JTable();
+        supplierPanelAD = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        logPanelAD = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        dashboardPanelAD = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        productPanelAD = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
         profilePanelAD = new javax.swing.JPanel();
         Title = new javax.swing.JLabel();
         userTextArea = new javax.swing.JTextArea();
@@ -70,18 +111,8 @@ public class MenuView extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        updateButton = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        managerPanelAD = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        supplierPanelAD = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
-        logPanelAD = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
-        dashboardPanelAD = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
-        productPanelAD = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
         menuPM = new javax.swing.JPanel();
         naviBarPM = new javax.swing.JPanel();
         profileButtonPM = new javax.swing.JButton();
@@ -100,7 +131,8 @@ public class MenuView extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setResizable(false);
+        setTitle("Main Menu");
+        setSize(new java.awt.Dimension(350, 350));
 
         basePanel.setBackground(new java.awt.Color(204, 204, 204));
         basePanel.setAutoscrolls(true);
@@ -109,6 +141,7 @@ public class MenuView extends javax.swing.JFrame {
 
         menuAdmin.setBackground(new java.awt.Color(102, 102, 102));
 
+        naviBarAdmin.setAlignmentX(0.0F);
         naviBarAdmin.setPreferredSize(new java.awt.Dimension(143, 522));
 
         profileButtonPM.setText("Manage\nPersonal\nProfile");
@@ -168,11 +201,11 @@ public class MenuView extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, naviBarAdminLayout.createSequentialGroup()
                 .addGroup(naviBarAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(naviBarAdminLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap(25, Short.MAX_VALUE)
                         .addComponent(managerButtonAD, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(naviBarAdminLayout.createSequentialGroup()
                         .addGap(25, 25, 25)
-                        .addComponent(profileButtonAD, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE))
+                        .addComponent(profileButtonAD, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(naviBarAdminLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(naviBarAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -186,7 +219,7 @@ public class MenuView extends javax.swing.JFrame {
         naviBarAdminLayout.setVerticalGroup(
             naviBarAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(naviBarAdminLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(22, 22, 22)
                 .addComponent(profileButtonAD, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(managerButtonAD, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -200,12 +233,298 @@ public class MenuView extends javax.swing.JFrame {
                 .addComponent(dashboardButtonAD, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(logOutAD)
-                .addGap(23, 23, 23))
+                .addGap(32, 32, 32))
         );
 
         contentHolderAdmin.setLayout(new java.awt.CardLayout());
 
+        managerPanelAD.setBackground(new java.awt.Color(204, 204, 204));
+        managerPanelAD.setForeground(new java.awt.Color(0, 0, 0));
+
+        createUserButton.setText("Create User");
+        createUserButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                createUserButtonActionPerformed(evt);
+            }
+        });
+
+        viewUserButton.setText("viewUser");
+        viewUserButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewUserButtonActionPerformed(evt);
+            }
+        });
+
+        userSubPanel.setBackground(new java.awt.Color(153, 153, 153));
+        userSubPanel.setLayout(new java.awt.CardLayout());
+
+        createPM.setBackground(new java.awt.Color(153, 153, 153));
+
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel1.setText("Name:");
+
+        jLabel14.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel14.setText("Contact:");
+
+        jLabel17.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel17.setText("Email");
+
+        jLabel18.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel18.setText("Username");
+
+        jLabel19.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel19.setText("Password");
+
+        newName.setText("John Smith");
+
+        newEmail.setText("JohnSmith@tgmail.com");
+
+        newContact.setText("016-123 4567");
+
+        newUsername.setText("JohnSmith");
+
+        jLabel20.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel20.setText("Confirm Password");
+
+        newPass1.setText("password");
+
+        newPass2.setText("password");
+
+        NewUserTitle.setFont(new java.awt.Font("Maiandra GD", 0, 36)); // NOI18N
+        NewUserTitle.setForeground(new java.awt.Color(0, 0, 0));
+        NewUserTitle.setText("Create A New User");
+
+        enterButton1.setText("Enter");
+        enterButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                enterButton1ActionPerformed(evt);
+            }
+        });
+
+        cancelButton1.setText("Cancel");
+
+        warningLabel.setForeground(new java.awt.Color(255, 51, 51));
+
+        javax.swing.GroupLayout createPMLayout = new javax.swing.GroupLayout(createPM);
+        createPM.setLayout(createPMLayout);
+        createPMLayout.setHorizontalGroup(
+            createPMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(createPMLayout.createSequentialGroup()
+                .addGroup(createPMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(createPMLayout.createSequentialGroup()
+                        .addGap(172, 172, 172)
+                        .addComponent(NewUserTitle))
+                    .addGroup(createPMLayout.createSequentialGroup()
+                        .addGap(55, 55, 55)
+                        .addGroup(createPMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel20)
+                            .addComponent(jLabel19)
+                            .addComponent(jLabel18)
+                            .addComponent(jLabel14)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel17))
+                        .addGap(37, 37, 37)
+                        .addGroup(createPMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(createPMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(createPMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(newContact, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(newName, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(newEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(newUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(newPass1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(newPass2, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(enterButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cancelButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(warningLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(0, 274, Short.MAX_VALUE))
+        );
+        createPMLayout.setVerticalGroup(
+            createPMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(createPMLayout.createSequentialGroup()
+                .addGap(48, 48, 48)
+                .addComponent(NewUserTitle)
+                .addGap(69, 69, 69)
+                .addGroup(createPMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(newName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(22, 22, 22)
+                .addGroup(createPMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel14)
+                    .addComponent(newContact, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(23, 23, 23)
+                .addGroup(createPMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel17)
+                    .addComponent(newEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(32, 32, 32)
+                .addGroup(createPMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel18)
+                    .addComponent(newUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(33, 33, 33)
+                .addGroup(createPMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel19)
+                    .addComponent(newPass1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(24, 24, 24)
+                .addGroup(createPMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel20)
+                    .addComponent(newPass2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(warningLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(enterButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(cancelButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(54, Short.MAX_VALUE))
+        );
+
+        userSubPanel.add(createPM, "card2");
+
+        viewPM.setBackground(new java.awt.Color(153, 153, 153));
+
+        userView.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        userView.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(userView);
+
+        javax.swing.GroupLayout viewPMLayout = new javax.swing.GroupLayout(viewPM);
+        viewPM.setLayout(viewPMLayout);
+        viewPMLayout.setHorizontalGroup(
+            viewPMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(viewPMLayout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 619, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(146, Short.MAX_VALUE))
+        );
+        viewPMLayout.setVerticalGroup(
+            viewPMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(viewPMLayout.createSequentialGroup()
+                .addGap(93, 93, 93)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(238, Short.MAX_VALUE))
+        );
+
+        userSubPanel.add(viewPM, "card2");
+
+        javax.swing.GroupLayout managerPanelADLayout = new javax.swing.GroupLayout(managerPanelAD);
+        managerPanelAD.setLayout(managerPanelADLayout);
+        managerPanelADLayout.setHorizontalGroup(
+            managerPanelADLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(managerPanelADLayout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addGroup(managerPanelADLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(viewUserButton, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(createUserButton, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(userSubPanel))
+        );
+        managerPanelADLayout.setVerticalGroup(
+            managerPanelADLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(userSubPanel)
+            .addGroup(managerPanelADLayout.createSequentialGroup()
+                .addGap(67, 67, 67)
+                .addComponent(createUserButton)
+                .addGap(132, 132, 132)
+                .addComponent(viewUserButton)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        contentHolderAdmin.add(managerPanelAD, "card4");
+
+        jLabel5.setText("Supplier");
+
+        javax.swing.GroupLayout supplierPanelADLayout = new javax.swing.GroupLayout(supplierPanelAD);
+        supplierPanelAD.setLayout(supplierPanelADLayout);
+        supplierPanelADLayout.setHorizontalGroup(
+            supplierPanelADLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(supplierPanelADLayout.createSequentialGroup()
+                .addGap(320, 320, 320)
+                .addComponent(jLabel5)
+                .addContainerGap(586, Short.MAX_VALUE))
+        );
+        supplierPanelADLayout.setVerticalGroup(
+            supplierPanelADLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(supplierPanelADLayout.createSequentialGroup()
+                .addGap(237, 237, 237)
+                .addComponent(jLabel5)
+                .addContainerGap(397, Short.MAX_VALUE))
+        );
+
+        contentHolderAdmin.add(supplierPanelAD, "card2");
+
+        jLabel6.setText("Log");
+
+        javax.swing.GroupLayout logPanelADLayout = new javax.swing.GroupLayout(logPanelAD);
+        logPanelAD.setLayout(logPanelADLayout);
+        logPanelADLayout.setHorizontalGroup(
+            logPanelADLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(logPanelADLayout.createSequentialGroup()
+                .addGap(378, 378, 378)
+                .addComponent(jLabel6)
+                .addContainerGap(554, Short.MAX_VALUE))
+        );
+        logPanelADLayout.setVerticalGroup(
+            logPanelADLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(logPanelADLayout.createSequentialGroup()
+                .addGap(214, 214, 214)
+                .addComponent(jLabel6)
+                .addContainerGap(420, Short.MAX_VALUE))
+        );
+
+        contentHolderAdmin.add(logPanelAD, "card3");
+
+        jLabel4.setText("dashboard");
+
+        javax.swing.GroupLayout dashboardPanelADLayout = new javax.swing.GroupLayout(dashboardPanelAD);
+        dashboardPanelAD.setLayout(dashboardPanelADLayout);
+        dashboardPanelADLayout.setHorizontalGroup(
+            dashboardPanelADLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 953, Short.MAX_VALUE)
+            .addGroup(dashboardPanelADLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(dashboardPanelADLayout.createSequentialGroup()
+                    .addGap(340, 340, 340)
+                    .addComponent(jLabel4)
+                    .addContainerGap(552, Short.MAX_VALUE)))
+        );
+        dashboardPanelADLayout.setVerticalGroup(
+            dashboardPanelADLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 650, Short.MAX_VALUE)
+            .addGroup(dashboardPanelADLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(dashboardPanelADLayout.createSequentialGroup()
+                    .addGap(262, 262, 262)
+                    .addComponent(jLabel4)
+                    .addContainerGap(372, Short.MAX_VALUE)))
+        );
+
+        contentHolderAdmin.add(dashboardPanelAD, "card5");
+
+        jLabel7.setText("product");
+
+        javax.swing.GroupLayout productPanelADLayout = new javax.swing.GroupLayout(productPanelAD);
+        productPanelAD.setLayout(productPanelADLayout);
+        productPanelADLayout.setHorizontalGroup(
+            productPanelADLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(productPanelADLayout.createSequentialGroup()
+                .addGap(275, 275, 275)
+                .addComponent(jLabel7)
+                .addContainerGap(634, Short.MAX_VALUE))
+        );
+        productPanelADLayout.setVerticalGroup(
+            productPanelADLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(productPanelADLayout.createSequentialGroup()
+                .addGap(240, 240, 240)
+                .addComponent(jLabel7)
+                .addContainerGap(394, Short.MAX_VALUE))
+        );
+
+        contentHolderAdmin.add(productPanelAD, "card9");
+
         profilePanelAD.setBackground(new java.awt.Color(250, 246, 203));
+        profilePanelAD.setPreferredSize(new java.awt.Dimension(1187, 600));
 
         Title.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         Title.setForeground(new java.awt.Color(51, 51, 51));
@@ -230,7 +549,12 @@ public class MenuView extends javax.swing.JFrame {
         jLabel13.setForeground(new java.awt.Color(0, 0, 0));
         jLabel13.setText("Username: ");
 
-        jButton1.setText("Update");
+        updateButton.setText("Update");
+        updateButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateButtonActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Cancel");
 
@@ -243,183 +567,74 @@ public class MenuView extends javax.swing.JFrame {
                 .addComponent(Title, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, profilePanelADLayout.createSequentialGroup()
-                .addGroup(profilePanelADLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(profilePanelADLayout.createSequentialGroup()
-                        .addGap(74, 74, 74)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(profilePanelADLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, profilePanelADLayout.createSequentialGroup()
                         .addGroup(profilePanelADLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, profilePanelADLayout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(userText, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(profilePanelADLayout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(72, 72, 72)
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))))
-                    .addGroup(profilePanelADLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(profilePanelADLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(profilePanelADLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, profilePanelADLayout.createSequentialGroup()
-                                    .addComponent(jLabel11)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(emailText, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, profilePanelADLayout.createSequentialGroup()
-                                    .addComponent(jLabel8)
-                                    .addGap(69, 69, 69)
-                                    .addComponent(nameText, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(profilePanelADLayout.createSequentialGroup()
                                 .addGroup(profilePanelADLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel13)
-                                    .addComponent(jLabel12))
-                                .addGap(71, 71, 71)
-                                .addComponent(contactText, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(121, 121, 121)
-                .addComponent(userTextArea, javax.swing.GroupLayout.PREFERRED_SIZE, 504, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32))
+                                    .addComponent(jLabel11)
+                                    .addComponent(jLabel8))
+                                .addGap(18, 18, 18)
+                                .addGroup(profilePanelADLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(emailText, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(nameText, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, profilePanelADLayout.createSequentialGroup()
+                                .addComponent(jLabel13)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(userText, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, profilePanelADLayout.createSequentialGroup()
+                                .addComponent(jLabel12)
+                                .addGap(18, 18, 18)
+                                .addComponent(contactText, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, profilePanelADLayout.createSequentialGroup()
+                        .addGroup(profilePanelADLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(updateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(29, 29, 29)))
+                .addComponent(userTextArea, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(207, 207, 207))
         );
         profilePanelADLayout.setVerticalGroup(
             profilePanelADLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(profilePanelADLayout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addComponent(Title)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
                 .addGroup(profilePanelADLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(userTextArea, javax.swing.GroupLayout.PREFERRED_SIZE, 467, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(profilePanelADLayout.createSequentialGroup()
-                        .addGap(54, 54, 54)
-                        .addGroup(profilePanelADLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(nameText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel8))
-                        .addGap(27, 27, 27)
-                        .addGroup(profilePanelADLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(emailText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel11))
-                        .addGap(41, 41, 41)
-                        .addGroup(profilePanelADLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel12)
-                            .addComponent(contactText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(40, 40, 40)
-                        .addGroup(profilePanelADLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(userText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel13))
-                        .addGap(108, 108, 108)
-                        .addGroup(profilePanelADLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(143, 143, 143))
+                        .addGap(38, 38, 38)
+                        .addComponent(userTextArea, javax.swing.GroupLayout.PREFERRED_SIZE, 399, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(profilePanelADLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
+                        .addGroup(profilePanelADLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, profilePanelADLayout.createSequentialGroup()
+                                .addGroup(profilePanelADLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(nameText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel8))
+                                .addGap(54, 54, 54)
+                                .addGroup(profilePanelADLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(emailText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel11))
+                                .addGroup(profilePanelADLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(profilePanelADLayout.createSequentialGroup()
+                                        .addGap(57, 57, 57)
+                                        .addComponent(contactText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(profilePanelADLayout.createSequentialGroup()
+                                        .addGap(73, 73, 73)
+                                        .addComponent(jLabel12)))
+                                .addGap(51, 51, 51)
+                                .addComponent(userText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGap(61, 61, 61)
+                        .addComponent(updateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(57, 57, 57))))
         );
 
         contentHolderAdmin.add(profilePanelAD, "card8");
-
-        jLabel1.setText("Manager");
-
-        javax.swing.GroupLayout managerPanelADLayout = new javax.swing.GroupLayout(managerPanelAD);
-        managerPanelAD.setLayout(managerPanelADLayout);
-        managerPanelADLayout.setHorizontalGroup(
-            managerPanelADLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(managerPanelADLayout.createSequentialGroup()
-                .addGap(263, 263, 263)
-                .addComponent(jLabel1)
-                .addContainerGap(626, Short.MAX_VALUE))
-        );
-        managerPanelADLayout.setVerticalGroup(
-            managerPanelADLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(managerPanelADLayout.createSequentialGroup()
-                .addGap(209, 209, 209)
-                .addComponent(jLabel1)
-                .addContainerGap(408, Short.MAX_VALUE))
-        );
-
-        contentHolderAdmin.add(managerPanelAD, "card4");
-
-        jLabel5.setText("Supplier");
-
-        javax.swing.GroupLayout supplierPanelADLayout = new javax.swing.GroupLayout(supplierPanelAD);
-        supplierPanelAD.setLayout(supplierPanelADLayout);
-        supplierPanelADLayout.setHorizontalGroup(
-            supplierPanelADLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(supplierPanelADLayout.createSequentialGroup()
-                .addGap(320, 320, 320)
-                .addComponent(jLabel5)
-                .addContainerGap(572, Short.MAX_VALUE))
-        );
-        supplierPanelADLayout.setVerticalGroup(
-            supplierPanelADLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(supplierPanelADLayout.createSequentialGroup()
-                .addGap(237, 237, 237)
-                .addComponent(jLabel5)
-                .addContainerGap(380, Short.MAX_VALUE))
-        );
-
-        contentHolderAdmin.add(supplierPanelAD, "card2");
-
-        jLabel6.setText("Log");
-
-        javax.swing.GroupLayout logPanelADLayout = new javax.swing.GroupLayout(logPanelAD);
-        logPanelAD.setLayout(logPanelADLayout);
-        logPanelADLayout.setHorizontalGroup(
-            logPanelADLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, logPanelADLayout.createSequentialGroup()
-                .addContainerGap(612, Short.MAX_VALUE)
-                .addComponent(jLabel6)
-                .addGap(306, 306, 306))
-        );
-        logPanelADLayout.setVerticalGroup(
-            logPanelADLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(logPanelADLayout.createSequentialGroup()
-                .addGap(250, 250, 250)
-                .addComponent(jLabel6)
-                .addContainerGap(367, Short.MAX_VALUE))
-        );
-
-        contentHolderAdmin.add(logPanelAD, "card3");
-
-        jLabel4.setText("dashboard");
-
-        javax.swing.GroupLayout dashboardPanelADLayout = new javax.swing.GroupLayout(dashboardPanelAD);
-        dashboardPanelAD.setLayout(dashboardPanelADLayout);
-        dashboardPanelADLayout.setHorizontalGroup(
-            dashboardPanelADLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 939, Short.MAX_VALUE)
-            .addGroup(dashboardPanelADLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(dashboardPanelADLayout.createSequentialGroup()
-                    .addGap(340, 340, 340)
-                    .addComponent(jLabel4)
-                    .addContainerGap(538, Short.MAX_VALUE)))
-        );
-        dashboardPanelADLayout.setVerticalGroup(
-            dashboardPanelADLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 633, Short.MAX_VALUE)
-            .addGroup(dashboardPanelADLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(dashboardPanelADLayout.createSequentialGroup()
-                    .addGap(262, 262, 262)
-                    .addComponent(jLabel4)
-                    .addContainerGap(355, Short.MAX_VALUE)))
-        );
-
-        contentHolderAdmin.add(dashboardPanelAD, "card5");
-
-        jLabel7.setText("product");
-
-        javax.swing.GroupLayout productPanelADLayout = new javax.swing.GroupLayout(productPanelAD);
-        productPanelAD.setLayout(productPanelADLayout);
-        productPanelADLayout.setHorizontalGroup(
-            productPanelADLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(productPanelADLayout.createSequentialGroup()
-                .addGap(275, 275, 275)
-                .addComponent(jLabel7)
-                .addContainerGap(620, Short.MAX_VALUE))
-        );
-        productPanelADLayout.setVerticalGroup(
-            productPanelADLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(productPanelADLayout.createSequentialGroup()
-                .addGap(240, 240, 240)
-                .addComponent(jLabel7)
-                .addContainerGap(377, Short.MAX_VALUE))
-        );
-
-        contentHolderAdmin.add(productPanelAD, "card9");
 
         javax.swing.GroupLayout menuAdminLayout = new javax.swing.GroupLayout(menuAdmin);
         menuAdmin.setLayout(menuAdminLayout);
@@ -427,18 +642,21 @@ public class MenuView extends javax.swing.JFrame {
             menuAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(menuAdminLayout.createSequentialGroup()
                 .addComponent(naviBarAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(contentHolderAdmin))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(contentHolderAdmin, javax.swing.GroupLayout.DEFAULT_SIZE, 953, Short.MAX_VALUE)
+                .addContainerGap())
         );
         menuAdminLayout.setVerticalGroup(
             menuAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(naviBarAdmin, javax.swing.GroupLayout.DEFAULT_SIZE, 633, Short.MAX_VALUE)
+            .addComponent(naviBarAdmin, javax.swing.GroupLayout.DEFAULT_SIZE, 650, Short.MAX_VALUE)
             .addComponent(contentHolderAdmin)
         );
 
         basePanel.add(menuAdmin, "card3");
 
         menuPM.setBackground(new java.awt.Color(153, 153, 153));
+
+        naviBarPM.setPreferredSize(new java.awt.Dimension(143, 522));
 
         profileButtonPM.setText("Manage\nPersonal\nProfile");
         profileButtonPM.setText("Manage Personal Profile");
@@ -483,7 +701,7 @@ public class MenuView extends javax.swing.JFrame {
                     .addComponent(productButtonPM, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(logOutPM, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(dashboardButtonPM, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(55, Short.MAX_VALUE))
         );
         naviBarPMLayout.setVerticalGroup(
             naviBarPMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -496,11 +714,12 @@ public class MenuView extends javax.swing.JFrame {
                 .addComponent(catalogueButtonPM, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(dashboardButtonPM, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(97, 97, 97)
                 .addComponent(logOutPM)
-                .addGap(20, 20, 20))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        contentHolderPM.setPreferredSize(new java.awt.Dimension(1187, 684));
         contentHolderPM.setLayout(new java.awt.CardLayout());
 
         jLabel2.setText("Dashboard");
@@ -512,14 +731,14 @@ public class MenuView extends javax.swing.JFrame {
             .addGroup(dashboardPanelPMLayout.createSequentialGroup()
                 .addGap(235, 235, 235)
                 .addComponent(jLabel2)
-                .addContainerGap(630, Short.MAX_VALUE))
+                .addContainerGap(509, Short.MAX_VALUE))
         );
         dashboardPanelPMLayout.setVerticalGroup(
             dashboardPanelPMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(dashboardPanelPMLayout.createSequentialGroup()
                 .addGap(152, 152, 152)
                 .addComponent(jLabel2)
-                .addContainerGap(465, Short.MAX_VALUE))
+                .addContainerGap(482, Short.MAX_VALUE))
         );
 
         contentHolderPM.add(dashboardPanelPM, "card5");
@@ -533,14 +752,14 @@ public class MenuView extends javax.swing.JFrame {
             .addGroup(cataloguePanelPMLayout.createSequentialGroup()
                 .addGap(224, 224, 224)
                 .addComponent(jLabel3)
-                .addContainerGap(646, Short.MAX_VALUE))
+                .addContainerGap(525, Short.MAX_VALUE))
         );
         cataloguePanelPMLayout.setVerticalGroup(
             cataloguePanelPMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(cataloguePanelPMLayout.createSequentialGroup()
                 .addGap(179, 179, 179)
                 .addComponent(jLabel3)
-                .addContainerGap(438, Short.MAX_VALUE))
+                .addContainerGap(455, Short.MAX_VALUE))
         );
 
         contentHolderPM.add(cataloguePanelPM, "card4");
@@ -554,14 +773,14 @@ public class MenuView extends javax.swing.JFrame {
             .addGroup(productPanelPMLayout.createSequentialGroup()
                 .addGap(349, 349, 349)
                 .addComponent(jLabel9)
-                .addContainerGap(533, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         productPanelPMLayout.setVerticalGroup(
             productPanelPMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(productPanelPMLayout.createSequentialGroup()
                 .addGap(127, 127, 127)
                 .addComponent(jLabel9)
-                .addContainerGap(490, Short.MAX_VALUE))
+                .addContainerGap(507, Short.MAX_VALUE))
         );
 
         contentHolderPM.add(productPanelPM, "card3");
@@ -575,14 +794,14 @@ public class MenuView extends javax.swing.JFrame {
             .addGroup(profilePanelPMLayout.createSequentialGroup()
                 .addGap(244, 244, 244)
                 .addComponent(jLabel10)
-                .addContainerGap(646, Short.MAX_VALUE))
+                .addContainerGap(525, Short.MAX_VALUE))
         );
         profilePanelPMLayout.setVerticalGroup(
             profilePanelPMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(profilePanelPMLayout.createSequentialGroup()
                 .addGap(206, 206, 206)
                 .addComponent(jLabel10)
-                .addContainerGap(411, Short.MAX_VALUE))
+                .addContainerGap(428, Short.MAX_VALUE))
         );
 
         contentHolderPM.add(profilePanelPM, "card2");
@@ -592,14 +811,14 @@ public class MenuView extends javax.swing.JFrame {
         menuPMLayout.setHorizontalGroup(
             menuPMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(menuPMLayout.createSequentialGroup()
-                .addComponent(naviBarPM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(naviBarPM, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(contentHolderPM))
+                .addComponent(contentHolderPM, javax.swing.GroupLayout.DEFAULT_SIZE, 806, Short.MAX_VALUE))
         );
         menuPMLayout.setVerticalGroup(
             menuPMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(naviBarPM, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(contentHolderPM)
+            .addComponent(naviBarPM, javax.swing.GroupLayout.DEFAULT_SIZE, 650, Short.MAX_VALUE)
+            .addComponent(contentHolderPM, javax.swing.GroupLayout.DEFAULT_SIZE, 650, Short.MAX_VALUE)
         );
 
         basePanel.add(menuPM, "card2");
@@ -608,18 +827,19 @@ public class MenuView extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(basePanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(basePanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1100, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(basePanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(basePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 650, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     
-    private void initPanelComponents(User user){
+    
+    private void initPanelComponents(User user,DatabaseManager db){
         /**
          * Manage Personal Profile ADMIN
          */
@@ -631,10 +851,25 @@ public class MenuView extends javax.swing.JFrame {
         this.contactText.setText(user.getContact());
         this.emailText.setText(user.getEmail());
         this.userText.setText(user.getLogin().toString());
-   
-    }
-    
-    
+        System.out.println("test 4");
+        /*
+        User View
+        */
+        String col[] = {"Name","Contact","Email","Gender","Username"};
+        DefaultTableModel tableModel = new DefaultTableModel(col,0);
+        this.userView.setModel(tableModel);
+        
+        System.out.println("test 5");
+        TableList users = db.getTable(DatabaseManager.Tables.USER);
+        System.out.println("test 6");
+        for (Object user1:users){
+            User u = (User)user1;
+            String[] obj= {u.getName(),u.getContact(),u.getEmail(),u.getGender().toString(),u.getLogin().toString()};  
+            tableModel.addRow(obj);
+        }
+        this.userView.setModel(tableModel);
+        }
+        
     /**
      * Navigation Bar Switching
      * @param evt 
@@ -689,42 +924,54 @@ public class MenuView extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.switchContentPanels(contentHolderPM, dashboardPanelPM);
     }//GEN-LAST:event_dashboardButtonPMActionPerformed
+
+    private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButtonActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_updateButtonActionPerformed
+
+    private void createUserButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createUserButtonActionPerformed
+        // TODO add your handling code here:
+        this.switchContentPanels(userSubPanel, createPM);
+    }//GEN-LAST:event_createUserButtonActionPerformed
+
+    private void viewUserButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewUserButtonActionPerformed
+        // TODO add your handling code here:
+         this.switchContentPanels(userSubPanel, viewPM);
+    }//GEN-LAST:event_viewUserButtonActionPerformed
+
+    private void enterButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enterButton1ActionPerformed
+        // TODO add your handling code here:
+        User newUser;
+        LoginInfo login=null;
+        if(this.checkPass()){
+           String[] i = this.newUserInput();
+           try{
+           login = new LoginInfo(i[3],i[4]);
+           }
+           catch(Exception e){
+               System.out.println("This is exception"+e);
+           }
+            System.out.println("4444");
+            newUser = new ProductManager(i[0],i[1],i[2],User.Gender.MALE,login);
+            System.out.println(newUser);
+            System.out.println(this.model);
+            try {
+                this.model.DB.addUser(newUser);
+            } catch (IOException ex) {
+                warningLabel.setText("Registration Error");
+            }
+            System.out.println(this.model.DB.toString());
+        }
+        else{
+        warningLabel.setText("Password Mismatch");
+        }
+    }//GEN-LAST:event_enterButton1ActionPerformed
 //</editor-fold>
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MenuView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MenuView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MenuView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MenuView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MenuView().setVisible(true);
-            }
-        });
-    }
+  
 
     /*
     * Menu Set up
@@ -763,37 +1010,66 @@ public class MenuView extends javax.swing.JFrame {
         holder.repaint();
         holder.revalidate();
     }
-
+    
+    /**
+     * Abstraction Body
+     */
+    
+    public String[] newUserInput(){
+        String[] s= new String[5];
+        s[0] = newName.getText();
+        s[1] = newEmail.getText();
+        s[2] = newContact.getText();
+        s[3] = newUsername.getText();
+        s[4] = new String(newPass1.getPassword());
+        return s;
+    }
   
+    public boolean checkPass(){
+    String s1 = new String(newPass1.getPassword());
+    String s2 = new String(newPass2.getPassword());
+    if (s1.equals(s2)){
+        return true;
+    }
+    else{
+        return false;
+    }
+    }
     
-   /**
-    * Getter and Setter
-    */ 
-    
+ 
  
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel NewUserTitle;
     private javax.swing.JLabel Title;
     private javax.swing.JLayeredPane basePanel;
+    private javax.swing.JButton cancelButton1;
     private javax.swing.JButton catalogueButtonPM;
     private javax.swing.JPanel cataloguePanelPM;
     private javax.swing.JTextField contactText;
     private javax.swing.JLayeredPane contentHolderAdmin;
     private javax.swing.JLayeredPane contentHolderPM;
+    private javax.swing.JPanel createPM;
+    private javax.swing.JButton createUserButton;
     private javax.swing.JButton dashboardButtonAD;
     private javax.swing.JButton dashboardButtonPM;
     private javax.swing.JPanel dashboardPanelAD;
     private javax.swing.JPanel dashboardPanelPM;
     private javax.swing.JTextField emailText;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton enterButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -801,6 +1077,7 @@ public class MenuView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton logButtonAD;
     private javax.swing.JButton logOutAD;
     private javax.swing.JButton logOutPM;
@@ -812,6 +1089,12 @@ public class MenuView extends javax.swing.JFrame {
     private javax.swing.JTextField nameText;
     private javax.swing.JPanel naviBarAdmin;
     private javax.swing.JPanel naviBarPM;
+    private javax.swing.JTextField newContact;
+    private javax.swing.JTextField newEmail;
+    private javax.swing.JTextField newName;
+    private javax.swing.JPasswordField newPass1;
+    private javax.swing.JPasswordField newPass2;
+    private javax.swing.JTextField newUsername;
     private javax.swing.JButton productButtonAD;
     private javax.swing.JButton productButtonPM;
     private javax.swing.JPanel productPanelAD;
@@ -822,8 +1105,14 @@ public class MenuView extends javax.swing.JFrame {
     private javax.swing.JPanel profilePanelPM;
     private javax.swing.JButton supplierButtonAD;
     private javax.swing.JPanel supplierPanelAD;
+    private javax.swing.JButton updateButton;
+    private javax.swing.JLayeredPane userSubPanel;
     private javax.swing.JTextField userText;
     private javax.swing.JTextArea userTextArea;
+    private javax.swing.JTable userView;
+    private javax.swing.JPanel viewPM;
+    private javax.swing.JButton viewUserButton;
+    private javax.swing.JLabel warningLabel;
     // End of variables declaration//GEN-END:variables
 
 
