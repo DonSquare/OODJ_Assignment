@@ -26,6 +26,10 @@ public class Product implements java.io.Serializable{
     public double getCost() {
         return cost;
     }
+    
+    public void setCost(double cost){
+        this.cost=cost;
+    }
 
     public double getPrice() {
         return price;
@@ -41,6 +45,14 @@ public class Product implements java.io.Serializable{
     
     public String getStockString(){
         return Integer.toString(stock);
+    }
+    
+    public Identification getID(){
+        return this.ID;
+    }
+    
+    public void setSupplier(Supplier supplier){
+        this.supplier = supplier;
     }
 
     /*

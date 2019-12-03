@@ -32,6 +32,7 @@ public class LoginController {
      * @throws java.io.IOException 
      */
     public LoginController() throws IOException {
+
         view = new AView.LoginView();
         if (view.getLocal().equals("local")){
         try{

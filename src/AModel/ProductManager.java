@@ -14,9 +14,16 @@ import java.nio.file.*;
  */
 public class ProductManager extends User{
    public static final long serialVersionUID=2L;
-    
 
-    public ProductManager(String name, String email, String contact, Gender gender, LoginInfo login) {
+    public ProductManager(Identification id,String name, String email, String contact, Gender gender,LoginInfo login) {
+        super(id,name, email, contact, Position.PRODUCT_MANAGER, gender,login);
+      
+        
+    }
+    
+   
+    
+   public ProductManager(String name, String email, String contact, Gender gender, LoginInfo login) {
         super(name, email, contact, Position.PRODUCT_MANAGER, Gender.MALE);
         this.setLogin(login);
     }

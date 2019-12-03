@@ -28,8 +28,13 @@ public class Supplier implements java.io.Serializable{
     Getter and Setter
      */
 
-    public String getID() {
-        return ID.toString() ;
+    public Identification getID() {
+        return ID ;
+    }
+
+    @Override
+    public String toString() {
+        return "ID:" + ID + ", name:" + name + ", address:" + address + ", contact:" + contact + ", email:" + email + '}';
     }
     
 

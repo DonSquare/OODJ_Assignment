@@ -5,6 +5,8 @@
  */
 package AModel;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Jaydon
@@ -16,21 +18,22 @@ public class Identification{
     public int number;
     public static final long serialVersionUID=2L;
     
-    enum headerGroup{
+    public enum headerGroup{
         PM, //PRODUCT MANAGER
         AD, //ADMIN
         SP,//SUPPLIER
         PR //PRODUCT
     }
+    
 
     public Identification(headerGroup h,int i){
        this.number = i;
        switch(h){
-           case PM:
-               this.header="PM";
-               break;
            case AD:
                this.header="AD";
+               break;
+           case PM:
+               this.header = "PM";
                break;
            case SP:
                this.header="SP";
@@ -41,6 +44,25 @@ public class Identification{
        }
        
 
+    }
+    
+    public static int returnLastID(ArrayList<Identification> a){
+        int num1 =0;
+        System.out.println(a);
+        System.out.println("deep wow");
+            for (Identification i:a){
+             try{
+                 if(num1<i.number)
+                 {
+                     num1=i.number;
+                     System.out.println("num1");
+                 }
+             }
+             catch(Exception e)
+             {System.out.println("null value"+e);}
+            }
+        System.out.println("num1: "+num1);
+        return num1;
     }
     
 

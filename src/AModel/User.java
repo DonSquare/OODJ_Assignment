@@ -13,11 +13,12 @@ import java.nio.file.Path;
  * @author Jaydon
  */
 public abstract class User implements java.io.Serializable {
-    
+    private Identification ID;
     private String name,email,contact;
     private Position position;
     private Gender gender;
     private LoginInfo login;
+    private boolean active=true;
     public static final long serialVersionUID=2L;
     
    /**
@@ -31,7 +32,20 @@ public abstract class User implements java.io.Serializable {
         this.contact = contact;
         this.position = position;
         this.gender = gender;
+        
     }
+
+    public User(Identification ID, String name, String email, String contact, Position position, Gender gender,LoginInfo login) {
+        this.ID = ID;
+        this.name = name;
+        this.email = email;
+        this.contact = contact;
+        this.position = position;
+        this.gender = gender;
+        this.login = login;
+    }
+    
+    
 
  
     
@@ -87,6 +101,24 @@ public abstract class User implements java.io.Serializable {
     public void setLogin(LoginInfo login) {
         this.login = login;
     }
+    
+    public Identification getID(){
+        return this.ID;
+    }
+    public void setID(Identification id){
+        this.ID = id;
+    }
+    
+    public String getActive(){
+        String s;
+        if (this.active == true){
+            s = "Active";
+        }
+        else{
+            s="Inactive";
+        }
+        return s;
+}
 //</editor-fold>
   
  

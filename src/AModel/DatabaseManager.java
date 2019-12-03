@@ -8,8 +8,6 @@ package AModel;
 import java.io.File;
 import java.io.*;
 import java.nio.file.Path;
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
 
 
@@ -22,8 +20,8 @@ public class DatabaseManager  {
     
 
     
-    ArrayList<TableList> database = new ArrayList<TableList>();
-    FolderManager databaseDirectory;
+    public ArrayList<TableList> database = new ArrayList<TableList>();
+    public FolderManager databaseDirectory;
 
         public enum Tables{
         PRODUCT,
@@ -106,7 +104,7 @@ public class DatabaseManager  {
         this.serialize(table);
  
         }
-//        System.out.println("Testing 2 "+dm.toString());
+
     
     
     
@@ -128,28 +126,111 @@ public class DatabaseManager  {
        return table;
    }
    
-   public void addUser(User user) throws IOException{
-       TableList table = this.getTable(Tables.USER);
-       table.add(user);
+   /*
+   get LastID
+   */
+   public int getNewIdentification(TableList t,boolean last){
+       ArrayList<Identification> i = new ArrayList<>();
+       int output=0;
+       for (Object o:t){
+       switch (t.getType()){
+           case SUPPLIER:
+               Supplier s = (Supplier)o;
+               i.add(s.getID());
+               break;
+           case USER:
+               User u = (User)o;
+               i.add(u.getID());
+               break;
+           case PRODUCT:
+               Product p = (Product)o;
+               i.add(p.getID());
+               break; 
+       }}
+       if (last==true){
+       output=Identification.returnLastID(i);
+       }
+       else if (last==false){
+       output=Identification.returnLastID(i)+1;
+       }
+       return output;
    }
    
-   public void addLog(Log log) throws IOException{
-       TableList table = this.getTable(Tables.LOG);
-       table.add(log);
-   }
-  
-   public void addSupplier(Supplier supplier) throws IOException{
-       TableList table = this.getTable(Tables.SUPPLIER);
-       table.add(supplier);
-   }
+   /*
+         CRUD
+   */
    
-   public void addProduct(Product product) throws IOException{
-       TableList table = this.getTable(Tables.PRODUCT);
-       table.add(product);
-   
+   public void addElements(Tables T,Object obj){
+       TableList table;
+       switch (T){
+           
+           case USER:
+              table = this.getTable(T);
+                table.add((User)obj);
+               break;
+           case LOG:
+              table = this.getTable(T);
+               table.add((Log)obj);
+               break;
+           case SUPPLIER:
+              table = this.getTable(T);
+            table.add((Supplier)obj);
+               break;
+           case PRODUCT:
+                table = this.getTable(T);
+                table.add((Product)obj);
+               break;
+       }
    }
-   
 
+   public void deleteElements(Tables T,Object obj){
+       TableList table=null;
+       switch (T){
+           case USER:
+              table = this.getTable(T);
+               break;
+           case LOG:
+              table = this.getTable(T);
+               break;
+           case SUPPLIER:
+              table = this.getTable(T);
+               break;
+           case PRODUCT:
+                table = this.getTable(T);
+               break;
+       }
+       for(Object element: table){
+           if(obj.equals(element)){
+               table.remove(obj);
+               System.out.println("object removed");
+           }
+       }
+   }
+   
+   public void updateElements(Tables T,Object preObj,Object postObj){
+        TableList table=null;
+        switch (T){
+           case USER:
+              table = this.getTable(T);
+               break;
+           case LOG:
+              table = this.getTable(T);
+               break;
+           case SUPPLIER:
+              table = this.getTable(T);
+               break;
+           case PRODUCT:
+                table = this.getTable(T);
+               break;
+       }
+        for(Object element: table){
+           if(preObj.equals(element)){
+               int i = table.indexOf(element);
+               table.set(i, postObj);
+           }
+   }
+   }
+   
   /*
    Serialize
    */ 
@@ -190,26 +271,6 @@ public class DatabaseManager  {
     return obj;
   }
   
-//  public void objConverter(TableList preConvert,TableList postConvert,Tables tableType){
-//      for (Object elements: preConvert){
-//          switch (tableType){
-//            case PRODUCT:
-//                postConvert.add((Product)elements);
-//                break;
-//            case SUPPLIER:
-//                postConvert.add((Supplier)elements);
-//                break;
-//            case USER:
-//                postConvert.add((User)elements);
-//                break;
-//            case CATALOGUE:
-//                postConvert.add((Catalogue)elements);
-//                break;
-//    }
-//          
-//      
-//      }
-//  }
  
     public void pullTables() throws IOException{
        

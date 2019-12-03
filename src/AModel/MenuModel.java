@@ -20,10 +20,16 @@ public class MenuModel {
     
     public MenuModel(User u, DatabaseManager db) throws IOException{
      this.user = u;
-     this.DB =db;
-     
-    
+     this.DB =db;  
 }
+    
+    public Identification returnNewID(TableList t,boolean isNotPM){
+        Identification i = new Identification(t.toHeader(isNotPM),DB.getNewIdentification(t,true));
+        System.out.println("test 2");
+        return i;
+    }
+    
+    
     public String toString(){
     return this.user.toString() + "\n" + this.DB.toString();
     }

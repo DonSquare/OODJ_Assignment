@@ -53,6 +53,7 @@ public class TableList extends ArrayList{
     public String getTableFileName(){
         return this.getTableName().replace(" database",".txt");
     }
+    
 
     /*
     Constructor
@@ -63,6 +64,27 @@ public class TableList extends ArrayList{
         this.tableType = tableType;
     }
     
+        public Identification.headerGroup toHeader(boolean isNotPM){
+        Identification.headerGroup H=null;
+        switch (this.tableType){
+            case PRODUCT:
+                H = Identification.headerGroup.PM;
+                break;
+            case SUPPLIER:
+                H = Identification.headerGroup.SP;
+                break;
+            case USER:
+                if (isNotPM){
+                H = Identification.headerGroup.AD;
+                }
+                else if(!isNotPM){
+                H = Identification.headerGroup.PM;
+                }
+                break;
+            }
+        return H;   
+        }
+
     
     /*
     Methods
