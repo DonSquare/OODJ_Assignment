@@ -24,8 +24,7 @@ public class MenuModel {
 }
     
     public Identification returnNewID(TableList t,boolean isNotPM){
-        Identification i = new Identification(t.toHeader(isNotPM),DB.getNewIdentification(t,true));
-        System.out.println("test 2");
+        Identification i = new Identification(t.toHeader(isNotPM),DB.getNewIdentification(t,true,isNotPM));
         return i;
     }
     

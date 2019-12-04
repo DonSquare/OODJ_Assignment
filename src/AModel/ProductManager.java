@@ -13,32 +13,32 @@ import java.nio.file.*;
  * @author Jaydon
  */
 public class ProductManager extends User{
+   
+   private boolean active;
    public static final long serialVersionUID=2L;
-
+   
+    public ProductManager(){};
+   
     public ProductManager(Identification id,String name, String email, String contact, Gender gender,LoginInfo login) {
         super(id,name, email, contact, Position.PRODUCT_MANAGER, gender,login);
-      
-        
+        this.active=true;
     }
     
-   
-    
-   public ProductManager(String name, String email, String contact, Gender gender, LoginInfo login) {
-        super(name, email, contact, Position.PRODUCT_MANAGER, Gender.MALE);
-        this.setLogin(login);
+  
+    public void setActive(boolean active){
+        this.active = active;
     }
     
-    public ProductManager(){
-        super("name", "email", "contact", Position.PRODUCT_MANAGER, Gender.MALE);
+ 
+    public String getActive(){
+        if(this.active==true){
+            return "Active";
+        }
+        else{
+            return "inActive";
+        }
     }
-    
-    //Start of Main
-    public static void main(String[] args){
 
-    
-    }
-    
-    //End of main
     
     
 }

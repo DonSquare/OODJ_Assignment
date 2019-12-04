@@ -11,7 +11,7 @@ import java.util.ArrayList;
  *
  * @author Jaydon
  */
-public class Identification{
+public class Identification implements java.io.Serializable{
     
     
     public String header;
@@ -48,22 +48,19 @@ public class Identification{
     
     public static int returnLastID(ArrayList<Identification> a){
         int num1 =0;
-        System.out.println(a);
-        System.out.println("deep wow");
             for (Identification i:a){
              try{
-                 if(num1<i.number)
+                 if(num1<=i.number)
                  {
-                     num1=i.number;
-                     System.out.println("num1");
+                     num1=i.number+1;
                  }
              }
-             catch(Exception e)
-             {System.out.println("null value"+e);}
+             catch(Exception e){
             }
-        System.out.println("num1: "+num1);
+        }
         return num1;
     }
+    
     
 
     

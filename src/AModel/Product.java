@@ -55,37 +55,18 @@ public class Product implements java.io.Serializable{
         this.supplier = supplier;
     }
 
-    /*
-    Constructor
-    */
-    public Product(String name, String brand, String cost, String price, String stock) {
+    public Product(Identification ID, String name, String brand, Supplier supplier, double cost, double price, int stock) {
+        this.ID = ID;
         this.name = name;
         this.brand = brand;
-        this.cost = Double.parseDouble(cost);
-        this.price = Double.parseDouble(price);
-        this.stock = Integer.parseInt(stock);
+        this.supplier = supplier;
+        this.cost = cost;
+        this.price = price;
+        this.stock = stock;
     }
+
    
-    public Product() {
-    }
-    public Product(String name, String brand, Supplier supplier, double cost, double price) {
-        this.name = name;
-        this.brand = brand;
-        this.supplier = supplier;
-        this.cost = cost;
-        this.price = price;
-    }
-
-    public Product(String name, String brand, Supplier supplier) {
-        this.name = name;
-        this.brand = brand;
-        this.supplier = supplier;
-    }
-
-    public Product(double cost, double price) {
-        this.cost = cost;
-        this.price = price;
-    }
+    
     
     /* 
     Methods

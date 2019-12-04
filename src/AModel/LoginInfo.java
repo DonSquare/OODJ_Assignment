@@ -69,6 +69,21 @@ public class LoginInfo implements Serializable{
         }
         return output;
         }
+    
+    public void isLoginUnique (DatabaseManager dm) throws CredentialsAlreadyExistException{
+        TableList userTable = dm.getTable(DatabaseManager.Tables.USER);
+        boolean output = true;
+        User user;
+        for (Object obj : userTable){
+            user = (User)obj;
+            if(this.hashedPW.equals(user.getLogin().hashedPW)){
+                output = false;
+            }
+        }
+        if (output==false){
+            throw new CredentialsAlreadyExistException();
+        }
+    }
         
     public static String toHashString(String username, char[] password) throws NoSuchAlgorithmException, InvalidKeySpecException{
         final int iteration =1000;
@@ -84,6 +99,7 @@ public class LoginInfo implements Serializable{
     
     
     public class FailedAuthenticationException extends Exception{};
+    public class CredentialsAlreadyExistException extends Exception{};
     
     /**
      * Password Hashing

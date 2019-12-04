@@ -4,11 +4,18 @@
  * and open the template in the editor.
  */
 package AView;
+import AModel.ComboBoxModels.*;
 import AModel.DatabaseManager;
 import AModel.*;
+import AModel.LoginInfo.CredentialsAlreadyExistException;
 import AModel.TableList;
 import AModel.User;
+import java.awt.Component;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 import javax.swing.*;
@@ -136,11 +143,6 @@ public class MenuView extends javax.swing.JFrame {
         dashboardPanelAD = new javax.swing.JPanel();
         managerPanelAD = new javax.swing.JPanel();
         userSubPanel = new javax.swing.JLayeredPane();
-        viewPM = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        userTable = new javax.swing.JTable();
-        jLabel24 = new javax.swing.JLabel();
-        viewUserCB = new javax.swing.JComboBox();
         createPM = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
@@ -160,6 +162,25 @@ public class MenuView extends javax.swing.JFrame {
         userIdLabel = new javax.swing.JLabel();
         createUserCB = new javax.swing.JComboBox();
         warningLabel = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        genderComboBox = new javax.swing.JComboBox();
+        viewPM = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        userTable = new javax.swing.JTable();
+        jLabel24 = new javax.swing.JLabel();
+        viewUserCB = new javax.swing.JComboBox();
+        updatePM = new javax.swing.JPanel();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        updateUserTable = new javax.swing.JTable();
+        jButton7 = new javax.swing.JButton();
+        jComboBox1 = new javax.swing.JComboBox();
+        jTextField1 = new javax.swing.JTextField();
+        jLabel16 = new javax.swing.JLabel();
+        deletePM = new javax.swing.JPanel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        deleteUserTable = new javax.swing.JTable();
+        jLabel10 = new javax.swing.JLabel();
+        deletePMButton = new javax.swing.JButton();
         createUserButton = new javax.swing.JButton();
         viewUserButton = new javax.swing.JButton();
         viewUserButton1 = new javax.swing.JButton();
@@ -189,18 +210,17 @@ public class MenuView extends javax.swing.JFrame {
         createButton = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jLabel29 = new javax.swing.JLabel();
+        productIDLabel = new javax.swing.JLabel();
         viewProduct = new javax.swing.JPanel();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        productTable = new javax.swing.JTable();
+        jScrollPane = new javax.swing.JScrollPane();
+        viewProductTable = new javax.swing.JTable();
         jLabel30 = new javax.swing.JLabel();
         viewProductButton2 = new javax.swing.JButton();
         viewProductButton3 = new javax.swing.JButton();
         supplierPanelAD = new javax.swing.JPanel();
+        viewSupplierButton = new javax.swing.JButton();
+        createSupplierButton = new javax.swing.JButton();
         supplierSubPanel = new javax.swing.JLayeredPane();
-        viewSupplier = new javax.swing.JPanel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        supplierTable = new javax.swing.JTable();
-        jLabel42 = new javax.swing.JLabel();
         createSupplier = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
@@ -214,9 +234,11 @@ public class MenuView extends javax.swing.JFrame {
         enterCreateSupplierButton = new javax.swing.JButton();
         cancelButton2 = new javax.swing.JButton();
         warningLabel1 = new javax.swing.JLabel();
-        idLabel1 = new javax.swing.JLabel();
-        createSupplierButton = new javax.swing.JButton();
-        viewSupplierButton = new javax.swing.JButton();
+        suppIDLabel = new javax.swing.JLabel();
+        viewSupplier = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        viewSuppTable = new javax.swing.JTable();
+        jLabel42 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Main Menu");
@@ -1001,65 +1023,6 @@ public class MenuView extends javax.swing.JFrame {
         userSubPanel.setPreferredSize(new java.awt.Dimension(703, 592));
         userSubPanel.setLayout(new java.awt.CardLayout());
 
-        viewPM.setBackground(new java.awt.Color(35, 47, 52));
-        viewPM.setForeground(new java.awt.Color(0, 0, 0));
-
-        userTable.setAutoCreateRowSorter(true);
-        userTable.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        userTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        userTable.setAutoscrolls(false);
-        jScrollPane1.setViewportView(userTable);
-
-        jLabel24.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
-        jLabel24.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel24.setText("User");
-
-        viewUserCB.setBackground(new java.awt.Color(52, 73, 85));
-        viewUserCB.setForeground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout viewPMLayout = new javax.swing.GroupLayout(viewPM);
-        viewPM.setLayout(viewPMLayout);
-        viewPMLayout.setHorizontalGroup(
-            viewPMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(viewPMLayout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addGroup(viewPMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(viewPMLayout.createSequentialGroup()
-                        .addGap(234, 234, 234)
-                        .addComponent(jLabel24))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 619, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(viewUserCB, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(49, Short.MAX_VALUE))
-        );
-        viewPMLayout.setVerticalGroup(
-            viewPMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, viewPMLayout.createSequentialGroup()
-                .addGap(74, 74, 74)
-                .addComponent(jLabel24)
-                .addGap(1, 1, 1)
-                .addComponent(viewUserCB, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        userSubPanel.add(viewPM, "card2");
-
         createPM.setBackground(new java.awt.Color(35, 47, 52));
         createPM.setForeground(new java.awt.Color(0, 0, 0));
         createPM.setMaximumSize(new java.awt.Dimension(703, 592));
@@ -1081,20 +1044,20 @@ public class MenuView extends javax.swing.JFrame {
         jLabel19.setForeground(new java.awt.Color(255, 255, 255));
         jLabel19.setText("Password:");
 
-        newName.setForeground(new java.awt.Color(255, 255, 255));
+        newName.setForeground(new java.awt.Color(0, 0, 0));
 
-        newEmail.setForeground(new java.awt.Color(255, 255, 255));
+        newEmail.setForeground(new java.awt.Color(0, 0, 0));
 
-        newContact.setForeground(new java.awt.Color(255, 255, 255));
+        newContact.setForeground(new java.awt.Color(0, 0, 0));
 
-        newUsername.setForeground(new java.awt.Color(255, 255, 255));
+        newUsername.setForeground(new java.awt.Color(0, 0, 0));
 
         jLabel20.setForeground(new java.awt.Color(255, 255, 255));
         jLabel20.setText("Confirm Password:");
 
-        newPass1.setForeground(new java.awt.Color(255, 255, 255));
+        newPass1.setForeground(new java.awt.Color(0, 0, 0));
 
-        newPass2.setForeground(new java.awt.Color(255, 255, 255));
+        newPass2.setForeground(new java.awt.Color(0, 0, 0));
 
         NewUserTitle.setFont(new java.awt.Font("SansSerif", 1, 36)); // NOI18N
         NewUserTitle.setForeground(new java.awt.Color(255, 255, 255));
@@ -1120,8 +1083,18 @@ public class MenuView extends javax.swing.JFrame {
         createUserCB.setBackground(new java.awt.Color(52, 73, 85));
         createUserCB.setForeground(new java.awt.Color(255, 255, 255));
         createUserCB.setMaximumSize(new java.awt.Dimension(703, 592));
+        createUserCB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                createUserCBActionPerformed(evt);
+            }
+        });
 
         warningLabel.setForeground(new java.awt.Color(204, 0, 0));
+
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("Gender");
+
+        genderComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Male", "Female", "Unpsecified" }));
 
         javax.swing.GroupLayout createPMLayout = new javax.swing.GroupLayout(createPM);
         createPM.setLayout(createPMLayout);
@@ -1130,6 +1103,25 @@ public class MenuView extends javax.swing.JFrame {
             .addGroup(createPMLayout.createSequentialGroup()
                 .addGroup(createPMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(createPMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(createPMLayout.createSequentialGroup()
+                            .addGap(237, 237, 237)
+                            .addComponent(enterButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(56, 56, 56)
+                            .addComponent(cancelButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, createPMLayout.createSequentialGroup()
+                            .addContainerGap()
+                            .addGroup(createPMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, createPMLayout.createSequentialGroup()
+                                    .addGroup(createPMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(createPMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jLabel20)
+                                            .addComponent(jLabel19)
+                                            .addComponent(jLabel5))
+                                        .addGroup(createPMLayout.createSequentialGroup()
+                                            .addGap(48, 48, 48)
+                                            .addComponent(jLabel18)))
+                                    .addGap(332, 332, 332))
+                                .addComponent(warningLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(createPMLayout.createSequentialGroup()
                             .addGap(193, 193, 193)
                             .addComponent(NewUserTitle))
@@ -1143,34 +1135,19 @@ public class MenuView extends javax.swing.JFrame {
                                 .addComponent(createUserCB, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(createPMLayout.createSequentialGroup()
                                     .addGap(6, 6, 6)
-                                    .addComponent(userIdLabel))))
-                        .addGroup(createPMLayout.createSequentialGroup()
-                            .addGap(237, 237, 237)
-                            .addGroup(createPMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(warningLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(createPMLayout.createSequentialGroup()
-                                    .addComponent(enterButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(56, 56, 56)
-                                    .addComponent(cancelButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, createPMLayout.createSequentialGroup()
-                            .addContainerGap()
-                            .addGroup(createPMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(createPMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel20)
-                                    .addComponent(jLabel19))
-                                .addGroup(createPMLayout.createSequentialGroup()
-                                    .addGap(48, 48, 48)
-                                    .addComponent(jLabel18)))
-                            .addGap(332, 332, 332)))
+                                    .addComponent(userIdLabel)))))
                     .addGroup(createPMLayout.createSequentialGroup()
-                        .addGap(30, 30, 30)
+                        .addContainerGap()
                         .addGroup(createPMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(newName, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(newEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(newContact, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(newUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(newPass1, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(newPass2, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(genderComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(createPMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(newPass1, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(newPass2, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(createPMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(newName, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(newEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(newContact, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(newUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addContainerGap(150, Short.MAX_VALUE))
         );
         createPMLayout.setVerticalGroup(
@@ -1199,24 +1176,227 @@ public class MenuView extends javax.swing.JFrame {
                 .addGroup(createPMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(newUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel18))
-                .addGap(18, 18, 18)
+                .addGap(16, 16, 16)
+                .addGroup(createPMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(genderComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(createPMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(newPass1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel19))
-                .addGap(18, 18, 18)
-                .addGroup(createPMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(newPass2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel20))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(warningLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(createPMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cancelButton1)
-                    .addComponent(enterButton1))
-                .addContainerGap(97, Short.MAX_VALUE))
+                    .addComponent(newPass2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel20))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addGroup(createPMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(enterButton1)
+                    .addComponent(cancelButton1))
+                .addGap(44, 44, 44))
         );
 
         userSubPanel.add(createPM, "card2");
+
+        viewPM.setBackground(new java.awt.Color(35, 47, 52));
+        viewPM.setForeground(new java.awt.Color(0, 0, 0));
+
+        userTable.setAutoCreateRowSorter(true);
+        userTable.setFont(new java.awt.Font("Dubai Medium", 0, 14)); // NOI18N
+        userTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        userTable.setAutoscrolls(false);
+        userTable.setFocusable(false);
+        userTable.setIntercellSpacing(new java.awt.Dimension(0, 0));
+        userTable.setRowHeight(25);
+        userTable.setShowVerticalLines(false);
+        userTable.getTableHeader().setResizingAllowed(false);
+        userTable.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(userTable);
+
+        jLabel24.setFont(new java.awt.Font("SansSerif", 1, 36)); // NOI18N
+        jLabel24.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel24.setText("View User");
+
+        viewUserCB.setBackground(new java.awt.Color(52, 73, 85));
+        viewUserCB.setForeground(new java.awt.Color(255, 255, 255));
+        viewUserCB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewUserCBActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout viewPMLayout = new javax.swing.GroupLayout(viewPM);
+        viewPM.setLayout(viewPMLayout);
+        viewPMLayout.setHorizontalGroup(
+            viewPMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, viewPMLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel24)
+                .addGap(255, 255, 255))
+            .addGroup(viewPMLayout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addGroup(viewPMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 661, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(viewUserCB, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(19, Short.MAX_VALUE))
+        );
+        viewPMLayout.setVerticalGroup(
+            viewPMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, viewPMLayout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addComponent(jLabel24)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(viewUserCB, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(73, Short.MAX_VALUE))
+        );
+
+        userSubPanel.add(viewPM, "card2");
+
+        updatePM.setBackground(new java.awt.Color(35, 47, 52));
+
+        updateUserTable.setFont(new java.awt.Font("Dubai Medium", 0, 14)); // NOI18N
+        updateUserTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        updateUserTable.setFocusable(false);
+        updateUserTable.setIntercellSpacing(new java.awt.Dimension(0, 0));
+        updateUserTable.setRowHeight(25);
+        updateUserTable.setShowVerticalLines(false);
+        jScrollPane7.setViewportView(updateUserTable);
+
+        jButton7.setText("Update");
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jTextField1.setText("jTextField1");
+
+        jLabel16.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
+        jLabel16.setText("Update Product Manager");
+
+        javax.swing.GroupLayout updatePMLayout = new javax.swing.GroupLayout(updatePM);
+        updatePM.setLayout(updatePMLayout);
+        updatePMLayout.setHorizontalGroup(
+            updatePMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(updatePMLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(updatePMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(updatePMLayout.createSequentialGroup()
+                        .addGap(144, 144, 144)
+                        .addComponent(jLabel16)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, updatePMLayout.createSequentialGroup()
+                        .addGroup(updatePMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(updatePMLayout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, updatePMLayout.createSequentialGroup()
+                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jTextField1))
+                            .addGroup(updatePMLayout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 697, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(14, 14, 14))))
+        );
+        updatePMLayout.setVerticalGroup(
+            updatePMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(updatePMLayout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addComponent(jLabel16)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(updatePMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(44, 44, 44))
+        );
+
+        userSubPanel.add(updatePM, "card5");
+
+        deletePM.setBackground(new java.awt.Color(35, 47, 52));
+
+        deleteUserTable.setFont(new java.awt.Font("Dubai Medium", 0, 14)); // NOI18N
+        deleteUserTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        deleteUserTable.setFocusable(false);
+        deleteUserTable.setIntercellSpacing(new java.awt.Dimension(0, 0));
+        deleteUserTable.setRowHeight(25);
+        deleteUserTable.setShowVerticalLines(false);
+        jScrollPane6.setViewportView(deleteUserTable);
+
+        jLabel10.setFont(new java.awt.Font("SansSerif", 1, 36)); // NOI18N
+        jLabel10.setText("Delete Product Manager");
+
+        deletePMButton.setText("Delete");
+
+        javax.swing.GroupLayout deletePMLayout = new javax.swing.GroupLayout(deletePM);
+        deletePM.setLayout(deletePMLayout);
+        deletePMLayout.setHorizontalGroup(
+            deletePMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(deletePMLayout.createSequentialGroup()
+                .addGap(39, 39, 39)
+                .addGroup(deletePMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, deletePMLayout.createSequentialGroup()
+                        .addComponent(jLabel10)
+                        .addGap(121, 121, 121))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, deletePMLayout.createSequentialGroup()
+                        .addGroup(deletePMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 644, Short.MAX_VALUE)
+                            .addComponent(deletePMButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(20, 20, 20))))
+        );
+        deletePMLayout.setVerticalGroup(
+            deletePMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(deletePMLayout.createSequentialGroup()
+                .addGap(39, 39, 39)
+                .addComponent(jLabel10)
+                .addGap(29, 29, 29)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 361, Short.MAX_VALUE)
+                .addGap(29, 29, 29)
+                .addComponent(deletePMButton, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35))
+        );
+
+        userSubPanel.add(deletePM, "card4");
 
         createUserButton.setBackground(new java.awt.Color(52, 73, 85));
         createUserButton.setForeground(new java.awt.Color(255, 255, 255));
@@ -1340,7 +1520,7 @@ public class MenuView extends javax.swing.JFrame {
                 .addComponent(jLabel6)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(77, Short.MAX_VALUE))
+                .addContainerGap(79, Short.MAX_VALUE))
         );
 
         contentHolderAdmin.add(logPanelAD, "card3");
@@ -1414,17 +1594,16 @@ public class MenuView extends javax.swing.JFrame {
         jLabel29.setForeground(new java.awt.Color(255, 255, 255));
         jLabel29.setText("Create Product");
 
+        productIDLabel.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        productIDLabel.setForeground(new java.awt.Color(255, 255, 255));
+        productIDLabel.setText("ProductID:");
+
         javax.swing.GroupLayout createProductLayout = new javax.swing.GroupLayout(createProduct);
         createProduct.setLayout(createProductLayout);
         createProductLayout.setHorizontalGroup(
             createProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(createProductLayout.createSequentialGroup()
                 .addGroup(createProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(createProductLayout.createSequentialGroup()
-                        .addGap(80, 80, 80)
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(newProductName, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(createProductLayout.createSequentialGroup()
                         .addGroup(createProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel28, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -1450,7 +1629,14 @@ public class MenuView extends javax.swing.JFrame {
                                 .addGap(26, 26, 26)
                                 .addComponent(newProductStock, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(minusButton)))))
+                                .addComponent(minusButton))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, createProductLayout.createSequentialGroup()
+                        .addGap(80, 80, 80)
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(createProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(productIDLabel)
+                            .addComponent(newProductName, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(161, Short.MAX_VALUE))
             .addGroup(createProductLayout.createSequentialGroup()
                 .addGap(195, 195, 195)
@@ -1462,7 +1648,9 @@ public class MenuView extends javax.swing.JFrame {
             .addGroup(createProductLayout.createSequentialGroup()
                 .addGap(43, 43, 43)
                 .addComponent(jLabel29)
-                .addGap(55, 55, 55)
+                .addGap(18, 18, 18)
+                .addComponent(productIDLabel)
+                .addGap(13, 13, 13)
                 .addGroup(createProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(newProductName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1502,12 +1690,12 @@ public class MenuView extends javax.swing.JFrame {
         viewProduct.setBackground(new java.awt.Color(35, 47, 52));
         viewProduct.setForeground(new java.awt.Color(204, 204, 204));
 
-        jScrollPane4.setBackground(new java.awt.Color(255, 255, 255));
-        jScrollPane4.setForeground(new java.awt.Color(0, 0, 0));
+        jScrollPane.setBackground(new java.awt.Color(255, 255, 255));
+        jScrollPane.setForeground(new java.awt.Color(0, 0, 0));
 
-        productTable.setBackground(new java.awt.Color(255, 255, 255));
-        productTable.setForeground(new java.awt.Color(0, 0, 0));
-        productTable.setModel(new javax.swing.table.DefaultTableModel(
+        viewProductTable.setBackground(new java.awt.Color(255, 255, 255));
+        viewProductTable.setForeground(new java.awt.Color(0, 0, 0));
+        viewProductTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -1518,7 +1706,7 @@ public class MenuView extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane4.setViewportView(productTable);
+        jScrollPane.setViewportView(viewProductTable);
 
         jLabel30.setFont(new java.awt.Font("Dialog", 1, 48)); // NOI18N
         jLabel30.setForeground(new java.awt.Color(255, 255, 255));
@@ -1532,7 +1720,7 @@ public class MenuView extends javax.swing.JFrame {
                 .addGroup(viewProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(viewProductLayout.createSequentialGroup()
                         .addGap(91, 91, 91)
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 549, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 549, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(viewProductLayout.createSequentialGroup()
                         .addGap(215, 215, 215)
                         .addComponent(jLabel30)))
@@ -1544,7 +1732,7 @@ public class MenuView extends javax.swing.JFrame {
                 .addGap(50, 50, 50)
                 .addComponent(jLabel30)
                 .addGap(54, 54, 54)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(101, Short.MAX_VALUE))
         );
 
@@ -1606,66 +1794,28 @@ public class MenuView extends javax.swing.JFrame {
         supplierPanelAD.setBackground(new java.awt.Color(35, 47, 52));
         supplierPanelAD.setPreferredSize(new java.awt.Dimension(703, 592));
 
+        viewSupplierButton.setBackground(new java.awt.Color(52, 73, 85));
+        viewSupplierButton.setForeground(new java.awt.Color(255, 255, 255));
+        viewSupplierButton.setText("View Supplier");
+        viewSupplierButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SupplierButtonActionPerformed(evt);
+            }
+        });
+
+        createSupplierButton.setBackground(new java.awt.Color(52, 73, 85));
+        createSupplierButton.setForeground(new java.awt.Color(255, 255, 255));
+        createSupplierButton.setText("Create Supplier");
+        createSupplierButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SupplierButtonActionPerformed(evt);
+            }
+        });
+
         supplierSubPanel.setBackground(new java.awt.Color(35, 47, 52));
         supplierSubPanel.setMaximumSize(new java.awt.Dimension(703, 592));
         supplierSubPanel.setPreferredSize(new java.awt.Dimension(674, 650));
         supplierSubPanel.setLayout(new java.awt.CardLayout());
-
-        viewSupplier.setBackground(new java.awt.Color(35, 47, 52));
-        viewSupplier.setForeground(new java.awt.Color(0, 0, 0));
-        viewSupplier.setFocusable(false);
-
-        supplierTable.setAutoCreateRowSorter(true);
-        supplierTable.setBackground(new java.awt.Color(255, 255, 255));
-        supplierTable.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        supplierTable.setForeground(new java.awt.Color(51, 51, 51));
-        supplierTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        supplierTable.setAutoscrolls(false);
-        jScrollPane3.setViewportView(supplierTable);
-
-        jLabel42.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
-        jLabel42.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel42.setText("Supplier");
-
-        javax.swing.GroupLayout viewSupplierLayout = new javax.swing.GroupLayout(viewSupplier);
-        viewSupplier.setLayout(viewSupplierLayout);
-        viewSupplierLayout.setHorizontalGroup(
-            viewSupplierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(viewSupplierLayout.createSequentialGroup()
-                .addGap(269, 269, 269)
-                .addComponent(jLabel42)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, viewSupplierLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 619, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34))
-        );
-        viewSupplierLayout.setVerticalGroup(
-            viewSupplierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, viewSupplierLayout.createSequentialGroup()
-                .addGap(74, 74, 74)
-                .addComponent(jLabel42)
-                .addGap(53, 53, 53)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(99, Short.MAX_VALUE))
-        );
-
-        supplierSubPanel.add(viewSupplier, "card2");
 
         createSupplier.setBackground(new java.awt.Color(35, 47, 52));
         createSupplier.setForeground(new java.awt.Color(35, 47, 52));
@@ -1709,9 +1859,9 @@ public class MenuView extends javax.swing.JFrame {
 
         warningLabel1.setForeground(new java.awt.Color(255, 51, 51));
 
-        idLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        idLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        idLabel1.setText("SupplierID:");
+        suppIDLabel.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        suppIDLabel.setForeground(new java.awt.Color(255, 255, 255));
+        suppIDLabel.setText("SupplierID:");
 
         javax.swing.GroupLayout createSupplierLayout = new javax.swing.GroupLayout(createSupplier);
         createSupplier.setLayout(createSupplierLayout);
@@ -1732,7 +1882,7 @@ public class MenuView extends javax.swing.JFrame {
                             .addComponent(newSuppName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(newSuppEmail, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(newSuppAdd, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(idLabel1)
+                            .addComponent(suppIDLabel)
                             .addComponent(warningLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(createSupplierLayout.createSequentialGroup()
                                 .addComponent(enterCreateSupplierButton, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1749,7 +1899,7 @@ public class MenuView extends javax.swing.JFrame {
                 .addGap(48, 48, 48)
                 .addComponent(NewUserTitle1)
                 .addGap(26, 26, 26)
-                .addComponent(idLabel1)
+                .addComponent(suppIDLabel)
                 .addGap(27, 27, 27)
                 .addGroup(createSupplierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -1765,31 +1915,77 @@ public class MenuView extends javax.swing.JFrame {
                 .addGap(32, 32, 32)
                 .addGroup(createSupplierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel22)
-                    .addComponent(newSuppAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(newSuppAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(68, 68, 68)
                 .addGroup(createSupplierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(enterCreateSupplierButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cancelButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(warningLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(93, Short.MAX_VALUE))
+                .addContainerGap(65, Short.MAX_VALUE))
         );
 
         supplierSubPanel.add(createSupplier, "card2");
 
-        createSupplierButton.setText("Create Supplier");
-        createSupplierButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SupplierButtonActionPerformed(evt);
-            }
-        });
+        viewSupplier.setBackground(new java.awt.Color(35, 47, 52));
+        viewSupplier.setForeground(new java.awt.Color(0, 0, 0));
+        viewSupplier.setFocusable(false);
 
-        viewSupplierButton.setText("View Supplier");
-        viewSupplierButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SupplierButtonActionPerformed(evt);
+        viewSuppTable.setAutoCreateRowSorter(true);
+        viewSuppTable.setBackground(new java.awt.Color(255, 255, 255));
+        viewSuppTable.setFont(new java.awt.Font("Dubai Medium", 0, 14)); // NOI18N
+        viewSuppTable.setForeground(new java.awt.Color(51, 51, 51));
+        viewSuppTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
+        viewSuppTable.setAutoscrolls(false);
+        viewSuppTable.setFocusable(false);
+        viewSuppTable.setIntercellSpacing(new java.awt.Dimension(0, 0));
+        viewSuppTable.setRowHeight(25);
+        viewSuppTable.setShowVerticalLines(false);
+        jScrollPane3.setViewportView(viewSuppTable);
+
+        jLabel42.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
+        jLabel42.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel42.setText("Supplier");
+
+        javax.swing.GroupLayout viewSupplierLayout = new javax.swing.GroupLayout(viewSupplier);
+        viewSupplier.setLayout(viewSupplierLayout);
+        viewSupplierLayout.setHorizontalGroup(
+            viewSupplierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(viewSupplierLayout.createSequentialGroup()
+                .addGap(269, 269, 269)
+                .addComponent(jLabel42)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, viewSupplierLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 619, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34))
+        );
+        viewSupplierLayout.setVerticalGroup(
+            viewSupplierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, viewSupplierLayout.createSequentialGroup()
+                .addGap(74, 74, 74)
+                .addComponent(jLabel42)
+                .addGap(53, 53, 53)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(99, Short.MAX_VALUE))
+        );
+
+        supplierSubPanel.add(viewSupplier, "card2");
 
         javax.swing.GroupLayout supplierPanelADLayout = new javax.swing.GroupLayout(supplierPanelAD);
         supplierPanelAD.setLayout(supplierPanelADLayout);
@@ -1834,7 +2030,7 @@ public class MenuView extends javax.swing.JFrame {
                 .addComponent(contentHolderAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 592, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(menuAdminLayout.createSequentialGroup()
-                .addComponent(naviBarAdmin, javax.swing.GroupLayout.DEFAULT_SIZE, 592, Short.MAX_VALUE)
+                .addComponent(naviBarAdmin, javax.swing.GroupLayout.DEFAULT_SIZE, 603, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -1868,14 +2064,14 @@ public class MenuView extends javax.swing.JFrame {
         this.personalProfilePreset();
         this.setComboBoxModel(this.createUserCB,new userCBModel(false));
         this.setComboBoxModel(this.viewUserCB, new userCBModel(true));
-
+        this.setComboBoxModel(this.genderComboBox, new genderComboBoxModel());
         }
         
     /**
-     * Buttons Action Performed
+     * Components Listener
      * @param evt 
      */
-    // <editor-fold defaultstate="collapsed" desc="Panel Switching">
+    // <editor-fold defaultstate="collapsed" desc="Components Event Listener">
    
     
     private void naviButtonADActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_naviButtonADActionPerformed
@@ -1888,15 +2084,15 @@ public class MenuView extends javax.swing.JFrame {
                 break;
             case "Manage Manager":
                 this.switchContentPanels(contentHolderAdmin, managerPanelAD);
-                this.userIdLabel.setText("UserID: "+this.getNewID(DatabaseManager.Tables.USER, false));
-                System.out.println("wow 2");
+                this.userIdLabel.setText("UserID: "+model.returnNewID(model.DB.getTable(DatabaseManager.Tables.USER),false).toString());
                 break;
             case "Manage Supplier":
                 this.switchContentPanels(contentHolderAdmin, supplierPanelAD);
+                this.suppIDLabel.setText("UserID: "+model.returnNewID(model.DB.getTable(DatabaseManager.Tables.SUPPLIER),false).toString());
                 break;
             case "Manage Product":
                 this.switchContentPanels(contentHolderAdmin, productPanelAD);
-                System.out.println("navibutton");
+                this.productIDLabel.setText("UserID: "+model.returnNewID(model.DB.getTable(DatabaseManager.Tables.PRODUCT),false).toString());
                 this.setComboBoxModel(createProductCB, new supplierCBModel(this.model.DB));
                 break;
             case "Inspect Log":
@@ -1945,28 +2141,28 @@ public class MenuView extends javax.swing.JFrame {
         JButton button = (JButton)evt.getSource();
         switch (button.getText()){
             case "Create Product":
-               
-                this.switchContentPanels(productSubPanel,createProduct);
+                this.productIDLabel.setText("UserID: "+model.returnNewID(model.DB.getTable(DatabaseManager.Tables.PRODUCT),false).toString());                this.switchContentPanels(productSubPanel,createProduct);
                 this.setComboBoxModel(createProductCB, new supplierCBModel(model.DB));
                 break;
             case "View Product":
                 this.switchContentPanels(userSubPanel,viewProduct);
-                this.setProductTable();
+                this.setProductTable(viewProductTable);
                 break;
         }
     }//GEN-LAST:event_productADNaviActionPerformed
 
     private void createProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createProductActionPerformed
-        // TODO add your handling code here:
-        Product newProduct;
-            String[] i = this.newProductInput(this.model.user.getPosition());
-            newProduct = new Product(i[0],i[1],i[2],i[3],i[4]);
-                this.model.DB.addElements(DatabaseManager.Tables.PRODUCT,(Object)newProduct);
+        // Admin Create Product
+        this.productIDLabel.setText("UserID: "+model.returnNewID(model.DB.getTable(DatabaseManager.Tables.PRODUCT),false).toString());
+        Product newProduct = this.newProductInput(newProductName, newProductBrand, createProductCB, newProductCost,newProductPrice,
+                newProductStock);
+
+        this.model.DB.addElements(DatabaseManager.Tables.PRODUCT,(Object)newProduct);
     
     }//GEN-LAST:event_createProductActionPerformed
 
     private void productStockAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_productStockAdminActionPerformed
-        // TODO add your handling code here:
+        // +- button for Product Stock
         JButton button =(JButton)evt.getSource();
         if(button.getText().equals("+")){
         int i =Integer.parseInt(this.newProductStock.getText());
@@ -1980,24 +2176,33 @@ public class MenuView extends javax.swing.JFrame {
     }//GEN-LAST:event_productStockAdminActionPerformed
 
     private void createUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createUserActionPerformed
-        // TODO add your handling code here:
-        User newUser;
-        LoginInfo login=null;
+        // Create User
+        User newUser=null;
+        
         if(this.checkPass()){
-            String[] i = this.newUserInput();
             try{
-                login = new LoginInfo(i[3],i[4]);
+            newUser = newUserInput();
+            newUser.getLogin().isLoginUnique(model.DB);
+            }
+            catch (CredentialsAlreadyExistException e0){
+                warningLabel.setText("Username and Password taken");
+                newUser=null;
+                
             }
             catch(Exception e){
-                System.out.println("This is exception"+e);
+                System.out.println("User Creattion Error: "+e);
             }
-            newUser = new ProductManager(i[0],i[1],i[2],User.Gender.MALE,login);
-            //           newUser=new ProductManager(i[0],i[1],i[2],User.Gender.MALE,login);
             
-            User user = new Admin();
-            
-            System.out.println(newUser);
-            this.model.DB.addElements(DatabaseManager.Tables.PRODUCT,(Object)newUser);
+            this.model.DB.addElements(DatabaseManager.Tables.USER,(Object)newUser);
+            this.userIdLabel.setText("UserID: "+model.returnNewID(model.DB.getTable(DatabaseManager.Tables.USER),false).toString());
+            warningLabel.setText("createUserActionPerformed: User Successfully Created");
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException ex) {
+                //Thread cannot sleep
+                System.out.println("Thread can't sleep");
+            }
+            warningLabel.setText("");
         }
         else{
             warningLabel.setText("Password Mismatch");
@@ -2010,11 +2215,19 @@ public class MenuView extends javax.swing.JFrame {
         switch (button.getText()){
             case "Create User":
                 this.switchContentPanels(userSubPanel,createPM);
-                this.userIdLabel.setText("UserID: "+this.getNewID(DatabaseManager.Tables.USER, false));
+                this.userIdLabel.setText("UserID: "+model.returnNewID(model.DB.getTable(DatabaseManager.Tables.USER),false).toString());
                 break;
             case "View User":
                 this.switchContentPanels(userSubPanel,viewPM);
                 this.setUserTable();
+                break;
+            case "Delete User":
+                this.switchContentPanels(userSubPanel,deletePM);
+                this.setToPM(this.deleteUserTable);
+                break;
+            case "Update User":
+                this.switchContentPanels(userSubPanel,updatePM);
+                this.setToPM(this.updateUserTable);
                 break;
         }
        
@@ -2022,10 +2235,6 @@ public class MenuView extends javax.swing.JFrame {
 
     private void createButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createButton1ActionPerformed
         // TODO add your handling code here:
-        Product newProduct;
-        String[] i = this.newProductInput(this.model.user.getPosition());
-        newProduct = new Product(i[0],i[1],i[2],i[3],i[4]);
-            this.model.DB.addElements(DatabaseManager.Tables.PRODUCT,newProduct);
     
     }//GEN-LAST:event_createButton1ActionPerformed
 
@@ -2049,8 +2258,7 @@ public class MenuView extends javax.swing.JFrame {
     }//GEN-LAST:event_viewProductButton1ActionPerformed
 
     private void createProductButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createProductButton1ActionPerformed
-        // switch Panels
-        this.switchContentPanels(productSubPanel1, createProductPanel1);
+        // switch Panel
     }//GEN-LAST:event_createProductButton1ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
@@ -2062,11 +2270,12 @@ public class MenuView extends javax.swing.JFrame {
         JButton button = (JButton)evt.getSource();
         switch (button.getText()){
             case "Create Supplier":
+                this.suppIDLabel.setText("UserID: "+model.returnNewID(model.DB.getTable(DatabaseManager.Tables.SUPPLIER),false).toString());
                 this.switchContentPanels(supplierSubPanel,createSupplier);
                 break;
             case "View Supplier":
                 this.switchContentPanels(supplierSubPanel,viewSupplier);
-                this.setSupplierTable();
+                this.setSupplierTable(viewSuppTable);
                 break;
         }
     }//GEN-LAST:event_SupplierButtonActionPerformed
@@ -2093,10 +2302,25 @@ public class MenuView extends javax.swing.JFrame {
     private void createSupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createSupplierActionPerformed
         // Create New Supplier
         Supplier newSupplier;
-        String[] i = this.newSupplierInput();
-        newSupplier = new Supplier(i[0],i[1],i[2],i[3]);
-            this.model.DB.addElements(DatabaseManager.Tables.SUPPLIER,newSupplier);
+        newSupplier = this.newSupplierInput();
+        this.model.DB.addElements(DatabaseManager.Tables.SUPPLIER,newSupplier);
     }//GEN-LAST:event_createSupplierActionPerformed
+
+    private void createUserCBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createUserCBActionPerformed
+        // ComboBox for creating user
+        JComboBox box =(JComboBox) evt.getSource();
+        if (((String)box.getSelectedItem()).equals("Product Manager")){
+            this.userIdLabel.setText("UserID: "+model.returnNewID(model.DB.getTable(DatabaseManager.Tables.USER),false).toString());
+        }
+        else if (((String)box.getSelectedItem()).equals("Admin")){
+            this.userIdLabel.setText("UserID: "+model.returnNewID(model.DB.getTable(DatabaseManager.Tables.USER),true).toString());
+            }
+    }//GEN-LAST:event_createUserCBActionPerformed
+
+    private void viewUserCBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewUserCBActionPerformed
+        // ComboBox for viewing user
+        this.setUserTable();
+    }//GEN-LAST:event_viewUserCBActionPerformed
 
 //</editor-fold>
 
@@ -2140,14 +2364,33 @@ public class MenuView extends javax.swing.JFrame {
     /**
      * New User
      */
-    public String[] newUserInput(){
-        String[] s= new String[5];
-        s[0] = newName.getText();
-        s[1] = newEmail.getText();
-        s[2] = newContact.getText();
-        s[3] = newUsername.getText();
-        s[4] = new String(newPass1.getPassword());
-        return s;
+    public User newUserInput() throws NoSuchAlgorithmException, InvalidKeySpecException{
+        User output = null;
+        String position = (String)createUserCB.getSelectedItem();
+        System.out.println(position);
+        String gender = (String)genderComboBox.getSelectedItem();
+       if(position.equals("Product Manager")){
+        output = new ProductManager(model.returnNewID(model.DB.getTable(DatabaseManager.Tables.USER), false),
+                        this.newName.getText(),
+                        this.newEmail.getText(),
+                        this.newContact.getText(),
+                        genderComboBoxModel.getGender(gender),
+                        new LoginInfo(this.newUsername.getText(),new String(newPass1.getPassword()))
+                        );
+        }
+       else if(position.equals("Admin")){
+       output = new Admin(model.returnNewID(model.DB.getTable(DatabaseManager.Tables.USER), true),
+                        this.newName.getText(),
+                        this.newEmail.getText(),
+                        this.newContact.getText(),
+                        genderComboBoxModel.getGender(gender),
+                        new LoginInfo(this.newUsername.getText(),new String(newPass1.getPassword()))
+                        );
+       }
+       else{
+           System.out.println("newUserInput() Error");
+       } 
+        return output;
     }
   
     public boolean checkPass(){
@@ -2164,37 +2407,33 @@ public class MenuView extends javax.swing.JFrame {
     /*
     * New Supplier 
     */
-     public String[] newSupplierInput(){
-        String[] s= new String[4];
-        s[0] = newSuppName.getText();
-        s[1] = newSuppAdd.getText();
-        s[2] = newSuppContact.getText();
-        s[3] = newSuppEmail.getText();
- 
-        return s;
+    public Supplier newSupplierInput(){
+        Supplier s = new Supplier (model.returnNewID(model.DB.getTable(DatabaseManager.Tables.SUPPLIER),true),
+                     this.newSuppName.getText(),
+                     this.newSuppAdd.getText(),
+                     this.newSuppContact.getText(),
+                     this.newSuppEmail.getText());
+        return s; 
     }
+    
      
      /*
      * New Product
      */
-     public String[] newProductInput(User.Position p){
-          String[] s= new String[5];
-         if(p == User.Position.ADMIN){
-        s[0] = newProductName.getText();
-        s[1] = newProductBrand.getText();
-        s[2] = newProductCost.getText();
-        s[3] = newProductPrice.getText();
-        s[4] = newProductStock.getText();
+     public Product newProductInput(JTextField name,JTextField brand,JComboBox supplier, JTextField cost,JTextField price,JTextField stock){
+         TableList suppliers = model.DB.getTable(DatabaseManager.Tables.SUPPLIER);
+         Supplier s1 =null;
+         for (Object supp:suppliers){
+             if(((Supplier)supp).name.equals((String)supplier.getSelectedItem())){
+                 s1 = (Supplier)supp;
+             }
          }
-         else if(p == User.Position.PRODUCT_MANAGER){
-        s[0] = newProductName1.getText();
-        s[1] = newProductBrand1.getText();
-        s[2] = newProductCost1.getText();
-        s[3] = newProductPrice1.getText();
-        s[4] = newProductStock1.getText();
-         }
-        
-        return s;
+         
+         Product output = new Product (model.returnNewID(model.DB.getTable(DatabaseManager.Tables.PRODUCT),true),
+                 name.getText(),brand.getText(),s1,Double.parseDouble(cost.getText()),Double.parseDouble(price.getText()),
+                    Integer.parseInt(stock.getText()));
+         return output;
+         
     }
     
      /*
@@ -2215,24 +2454,71 @@ public class MenuView extends javax.swing.JFrame {
     /*
     Setting Tables
     */
-    public void setUserTable(){
+    
+     public void setUserTable(){
         /*
         User View
         */
-        String col[] = {"Name","Contact","Email","Gender","Username"};
+        String col[]=null;
+        if (((String)viewUserCB.getSelectedItem()).equals("Product Manager")){
+            col = new String[]{"ID","Name","Contact","Email","Gender","Username","Active"};
+        }
+        else if (((String)viewUserCB.getSelectedItem()).equals("Admin")){
+            col = new String[]{"ID","Name","Contact","Email","Gender","Username"};
+        }
+        else if (((String)viewUserCB.getSelectedItem()).equals("General")){
+            col = new String[]{"ID","Name","Contact","Email","Gender","Username","Position"};
+        }
         DefaultTableModel tableModel = new DefaultTableModel(col,0);
         this.userTable.setModel(tableModel);
         
         TableList users = model.DB.getTable(DatabaseManager.Tables.USER);
-        for (Object user1:users){
-            User u = (User)user1;
+        for (Object user:users){
+            User u = (User)user;
+            if (((String)viewUserCB.getSelectedItem()).equals("Product Manager")){
             if(u.getPosition()==User.Position.PRODUCT_MANAGER){
-            String[] obj= {u.getName(),u.getContact(),u.getEmail(),u.getGender().toString(),u.getLogin().toString()}; 
+                ProductManager pm = (ProductManager)u;
+               
+                String[] obj= {pm.getID().toString(),pm.getName(),pm.getContact(),
+                    pm.getEmail(),pm.getGender().toString(),pm.getLogin().toString(),pm.getActive()}; 
+                tableModel.addRow(obj);
+            }
+            }
+            
+            else if (((String)viewUserCB.getSelectedItem()).equals("Admin")){
+            if(u.getPosition()==User.Position.ADMIN){
+                Admin ad = (Admin)u;
+                String[] obj= {ad.getID().toString(),ad.getName(),ad.getContact(),
+                    ad.getEmail(),ad.getGender().toString(),ad.getLogin().toString()}; 
+                tableModel.addRow(obj);
+                }
+            }
+            else if (((String)viewUserCB.getSelectedItem()).equals("General")){
+             String[] obj= {u.getID().toString(),u.getName(),u.getContact(),
+                u.getEmail(),u.getGender().toString(),u.getLogin().toString(),u.getPosition().toString()}; 
             tableModel.addRow(obj);
             }
         }
         this.userTable.setModel(tableModel);
     }
+    
+     public void setToPM(JTable tab){
+         //SETTING TABLES TO DISPLAY ONLY PM
+        String[] col=null;
+        col = new String[]{"ID","Name","Contact","Email","Gender","Username","Active"};
+        DefaultTableModel tableModel = new DefaultTableModel(col,0);
+        tab.setModel(tableModel);
+        TableList users = model.DB.getTable(DatabaseManager.Tables.USER);
+        for (Object user:users){
+            User u = (User)user;
+            if(u.getPosition()==User.Position.PRODUCT_MANAGER){
+                ProductManager pm = (ProductManager)u;
+                String[] obj= {pm.getID().toString(),pm.getName(),pm.getContact(),
+                    pm.getEmail(),pm.getGender().toString(),pm.getLogin().toString(),pm.getActive()}; 
+                tableModel.addRow(obj);
+            }
+            }
+     }
     
     public void setLogTable(){
         /*
@@ -2255,33 +2541,34 @@ public class MenuView extends javax.swing.JFrame {
     
     }
     
-    public void setSupplierTable(){
-        String col[] = {"Name","Contact","Email","Address"};
+    public void setSupplierTable(JTable table){
+        String col[] = {"ID","Name","Address","Contact","Email"};
         DefaultTableModel tableModel = new DefaultTableModel(col,0);
-        this.supplierTable.setModel(tableModel);
+        table.setModel(tableModel);
         
         TableList suppliers = model.DB.getTable(DatabaseManager.Tables.SUPPLIER);
         for (Object supplier:suppliers){
             Supplier s = (Supplier)supplier;
-            String[] obj= {s.name,s.contact,s.email,s.address};  
+            String[] obj= {s.getID().toString(),s.name,s.address,s.contact,s.email};  
             tableModel.addRow(obj);
         }
-        this.supplierTable.setModel(tableModel);
+        table.setModel(tableModel);
     
     }
     
-    public void setProductTable(){
-        String col[] = {"Name","Brand","Supplier","Cost","Price","Stock"};
+    public void setProductTable(JTable table){
+        String col[] = {"ID","Name","Brand","Supplier","Cost","Price","Stock"};
         DefaultTableModel tableModel = new DefaultTableModel(col,0);
-        this.productTable.setModel(tableModel);
+        table.setModel(tableModel);
         
         TableList products = model.DB.getTable(DatabaseManager.Tables.PRODUCT);
         for (Object product:products){
             Product p = (Product)product;
-            String[] obj= {p.name,p.brand,p.getSupplier(),p.getCostString(),p.getPriceString(),p.getStockString()};  
+            String[] obj= {p.getID().toString(),p.name,p.brand,
+                p.getSupplier(),p.getCostString(),p.getPriceString(),p.getStockString()};  
             tableModel.addRow(obj);
         }
-        this.productTable.setModel(tableModel);
+        table.setModel(tableModel);
     
     }
     
@@ -2293,21 +2580,17 @@ public class MenuView extends javax.swing.JFrame {
         CB.setSelectedIndex(0);
     }
     
-    /*
-    Getting ID
-    */
-    public String getNewID(DatabaseManager.Tables type,boolean isNotPM){
-        String output=null;
-        Identification id = model.returnNewID(model.DB.getTable(type),isNotPM);
-        output = id.toString();
-        System.out.println("output: "+output);
-        
-        return output;
+    public static void clearTextField(JPanel panel){
+        for(Component c: panel.getComponents()){
+            if(c instanceof JTextField){
+                ((JTextField)c).setText("");
+            }
+        }
     }
 
- 
 
-    
+ 
+// <editor-fold defaultstate="collapsed" desc="Variable Declaration">
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel NewUserTitle;
     private javax.swing.JLabel NewUserTitle1;
@@ -2339,23 +2622,30 @@ public class MenuView extends javax.swing.JFrame {
     private javax.swing.JButton dashboardButtonPM;
     private javax.swing.JPanel dashboardPanelAD;
     private javax.swing.JPanel dashboardPanelPM;
+    private javax.swing.JPanel deletePM;
+    private javax.swing.JButton deletePMButton;
+    private javax.swing.JTable deleteUserTable;
     private javax.swing.JTextField emailText;
     private javax.swing.JTextField emailText1;
     private javax.swing.JButton enterButton1;
     private javax.swing.JButton enterCreateSupplierButton;
-    private javax.swing.JLabel idLabel1;
+    private javax.swing.JComboBox genderComboBox;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
+    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
@@ -2383,15 +2673,19 @@ public class MenuView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel40;
     private javax.swing.JLabel jLabel42;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JScrollPane jScrollPane;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JButton logButtonAD;
     private javax.swing.JButton logOutAD;
     private javax.swing.JButton logOutPM;
@@ -2432,22 +2726,24 @@ public class MenuView extends javax.swing.JFrame {
     private javax.swing.JButton plusButton1;
     private javax.swing.JButton productButtonAD;
     private javax.swing.JButton productButtonPM;
+    private javax.swing.JLabel productIDLabel;
     private javax.swing.JPanel productPanelAD;
     private javax.swing.JPanel productPanelPM;
     private javax.swing.JLayeredPane productSubPanel;
     private javax.swing.JLayeredPane productSubPanel1;
-    private javax.swing.JTable productTable;
     private javax.swing.JTable productTable1;
     private javax.swing.JButton profileButtonAD;
     private javax.swing.JButton profileButtonPM;
     private javax.swing.JPanel profilePanelAD;
     private javax.swing.JPanel profilePanelPM;
+    private javax.swing.JLabel suppIDLabel;
     private javax.swing.JButton supplierButtonAD;
     private javax.swing.JPanel supplierPanelAD;
     private javax.swing.JLayeredPane supplierSubPanel;
-    private javax.swing.JTable supplierTable;
     private javax.swing.JButton updateButton;
     private javax.swing.JButton updateButton1;
+    private javax.swing.JPanel updatePM;
+    private javax.swing.JTable updateUserTable;
     private javax.swing.JLabel userIdLabel;
     private javax.swing.JLayeredPane userSubPanel;
     private javax.swing.JTable userTable;
@@ -2462,6 +2758,8 @@ public class MenuView extends javax.swing.JFrame {
     private javax.swing.JButton viewProductButton2;
     private javax.swing.JButton viewProductButton3;
     private javax.swing.JPanel viewProductPanel1;
+    private javax.swing.JTable viewProductTable;
+    private javax.swing.JTable viewSuppTable;
     private javax.swing.JPanel viewSupplier;
     private javax.swing.JButton viewSupplierButton;
     private javax.swing.JButton viewUserButton;
@@ -2471,5 +2769,6 @@ public class MenuView extends javax.swing.JFrame {
     private javax.swing.JLabel warningLabel1;
     // End of variables declaration//GEN-END:variables
 
+// </editor-fold>
 
 }

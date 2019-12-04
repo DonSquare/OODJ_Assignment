@@ -13,11 +13,8 @@ public class Admin extends User{
       public static final long serialVersionUID=2L;
       
       
-    public Admin(){
-    super("name", "email", "contact", Position.ADMIN, Gender.MALE);
+    public Admin(Identification id,String name, String email, String contact, Gender gender,LoginInfo login){
+        super(id,name, email, contact, Position.ADMIN, gender,login);
     }
-    
-    
-    
-  
+
 }

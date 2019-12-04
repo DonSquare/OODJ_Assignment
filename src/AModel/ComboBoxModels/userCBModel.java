@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package AModel;
+package AModel.ComboBoxModels;
 
 import javax.swing.ComboBoxModel;
 

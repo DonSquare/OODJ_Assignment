@@ -13,23 +13,11 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/Jaydon/Desktop/OODJAss_1/Ass3/src/AModel/Identification.java</file>
-            <file>file:/C:/Users/Jaydon/Desktop/OODJAss_1/Ass3/src/AController/AppController.java</file>
-            <file>file:/C:/Users/Jaydon/Desktop/OODJAss_1/Ass3/src/AModel/ProductManager.java</file>
-            <file>file:/C:/Users/Jaydon/Desktop/OODJAss_1/Ass3/src/AModel/FolderManager.java</file>
-            <file>file:/C:/Users/Jaydon/Desktop/OODJAss_1/Ass3/src/AModel/LoginInfo.java</file>
-            <file>file:/C:/Users/Jaydon/Desktop/OODJAss_1/Ass3/src/AModel/Log.java</file>
+            <file>file:/C:/Users/Jaydon/Desktop/OODJAss_1/Ass3/src/AView/MenuView.java</file>
             <file>file:/C:/Users/Jaydon/Desktop/OODJAss_1/Ass3/src/AModel/DatabaseManager.java</file>
             <file>file:/C:/Users/Jaydon/Desktop/OODJAss_1/Ass3/src/AModel/MenuModel.java</file>
-            <file>file:/C:/Users/Jaydon/Desktop/OODJAss_1/Ass3/src/AModel/Supplier.java</file>
-            <file>file:/C:/Users/Jaydon/Desktop/OODJAss_1/Ass3/src/AModel/Admin.java</file>
-            <file>file:/C:/Users/Jaydon/Desktop/OODJAss_1/Ass3/src/AController/LoginController.java</file>
-            <file>file:/C:/Users/Jaydon/Desktop/OODJAss_1/Ass3/src/AModel/User.java</file>
-            <file>file:/C:/Users/Jaydon/Desktop/OODJAss_1/Ass3/src/AModel/Product.java</file>
-            <file>file:/C:/Users/Jaydon/Desktop/OODJAss_1/Ass3/src/AView/LoginView.java</file>
-            <file>file:/C:/Users/Jaydon/Desktop/OODJAss_1/Ass3/src/AView/MenuView.java</file>
             <file>file:/C:/Users/Jaydon/Desktop/OODJAss_1/Ass3/src/AModel/TableList.java</file>
-            <file>file:/C:/Users/Jaydon/Desktop/OODJAss_1/Ass3/src/AController/AppRunner.java</file>
-            <file>file:/C:/Users/Jaydon/Desktop/OODJAss_1/Ass3/src/AModel/Catalogue.java</file>
+            <file>file:/C:/Users/Jaydon/Desktop/OODJAss_1/Ass3/src/AModel/Supplier.java</file>
         </group>
     </open-files>
 </project-private>

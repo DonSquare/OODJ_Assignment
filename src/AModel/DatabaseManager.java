@@ -8,6 +8,7 @@ package AModel;
 import java.io.File;
 import java.io.*;
 import java.nio.file.Path;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
 
@@ -43,7 +44,6 @@ public class DatabaseManager  {
         this.pullTables();
         this.databaseListCheck();
         this.serializeAll();
-            System.out.println("test 3");
         }
         catch (Exception e){
             System.out.println("DM instantiation error"+e);
@@ -81,28 +81,24 @@ public class DatabaseManager  {
     }
     
     public void databaseAddMasters() throws IOException{
-        User user1 = new Admin();
-        User user2 = new ProductManager();
-        user1.setName("masterAdmin");
+       User user1=null;
+       User user2=null;
         try{
-        user1.setLogin(new LoginInfo ("admin","password"));
-        user2.setName("masterProductManager");
-        user2.setLogin(new LoginInfo ("pm","password"));
-        }
-        catch(Exception e){
-            System.out.println("master creation error");
-        }
-//        System.out.println("user1: "+user1);
-//        System.out.println("user2: "+user2);
-//        System.out.println("========================================");
-//        System.out.println("Pulled tables \n"+ dm.getTable(Tables.USER));
-        TableList table = this.getTable(Tables.USER);
-        table.add(user1);
-        table.add(user2);
-//        System.out.println("==================================");
-//        System.out.println("pre serialization: \n"+ table);
-        this.serialize(table);
- 
+        user1 = new Admin(new Identification(Identification.headerGroup.AD,00),"masterAdmin","ADmaster@gmail.com","016-549 5449",User.Gender.UNSPECIFIED, 
+                new LoginInfo("admin","password"));
+        user2 = new ProductManager(new Identification(Identification.headerGroup.PM,00),"masterPM","PMmaster@gmail.com","012-456-7894",User.Gender.UNSPECIFIED,
+        new LoginInfo("pm","password"));
+        user1.setName("masterAdmin");
+       }
+       catch(Exception e){
+           //Cannot create databaseAddMasters
+           //Should not occur
+           System.out.println("database master error: "+e);
+       }
+        this.addElements(Tables.USER, (Object)user1);
+        this.addElements(Tables.USER, (Object)user2);
+//        System.out.println(Tables.USER);
+        this.serialize(this.getTable(Tables.USER));
         }
 
     
@@ -129,7 +125,7 @@ public class DatabaseManager  {
    /*
    get LastID
    */
-   public int getNewIdentification(TableList t,boolean last){
+   public int getNewIdentification(TableList t,boolean last,boolean isNotPM){
        ArrayList<Identification> i = new ArrayList<>();
        int output=0;
        for (Object o:t){
@@ -140,13 +136,23 @@ public class DatabaseManager  {
                break;
            case USER:
                User u = (User)o;
-               i.add(u.getID());
+               if(!isNotPM){
+                   if(u.getPosition()== User.Position.PRODUCT_MANAGER){
+                        i.add(u.getID());
+                   }
+               }
+               else{
+                   if(u.getPosition()==User.Position.ADMIN){
+                       i.add(u.getID());
+                   }
+               }
                break;
            case PRODUCT:
                Product p = (Product)o;
                i.add(p.getID());
                break; 
-       }}
+        }
+       }
        if (last==true){
        output=Identification.returnLastID(i);
        }

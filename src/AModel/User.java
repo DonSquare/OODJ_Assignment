@@ -5,8 +5,6 @@
  */
 package AModel;
 
-import java.io.*;
-import java.nio.file.Path;
 
 /**
  *
@@ -18,7 +16,6 @@ public abstract class User implements java.io.Serializable {
     private Position position;
     private Gender gender;
     private LoginInfo login;
-    private boolean active=true;
     public static final long serialVersionUID=2L;
     
    /**
@@ -26,14 +23,6 @@ public abstract class User implements java.io.Serializable {
      */
     public User(){};
     
-    public User(String name, String email, String contact, Position position, Gender gender) {
-        this.name = name;
-        this.email = email;
-        this.contact = contact;
-        this.position = position;
-        this.gender = gender;
-        
-    }
 
     public User(Identification ID, String name, String email, String contact, Position position, Gender gender,LoginInfo login) {
         this.ID = ID;
@@ -108,24 +97,14 @@ public abstract class User implements java.io.Serializable {
     public void setID(Identification id){
         this.ID = id;
     }
-    
-    public String getActive(){
-        String s;
-        if (this.active == true){
-            s = "Active";
-        }
-        else{
-            s="Inactive";
-        }
-        return s;
-}
+
 //</editor-fold>
   
- 
+
     
     @Override
     public String toString(){
-        String s = this.name+","+this.email+","+this.contact+","+this.gender+","+this.position+","+this.login.toString();
+        String s = this.ID+","+this.name+","+this.email+","+this.contact+","+this.gender+","+this.position+","+this.login.toString();
         return s;
     }
     
